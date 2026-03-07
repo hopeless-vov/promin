@@ -1,0 +1,17 @@
+@import './fonts.css';
+@import './tailwind.css';
+@import './theme.css';
+
+body {
+  background-color: #171717;
+  color: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+select option {
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+}
