@@ -26,7 +26,7 @@ export function AuthLayout() {
 
   if (isForgotPassword) {
     return (
-      <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#1c1917", color: "#fff" }}>
+      <div className="min-h-screen flex flex-col bg-[#1c1917] text-white">
         <div className="p-6">
           <Logo />
         </div>
@@ -39,18 +39,11 @@ export function AuthLayout() {
   const testimonial = testimonials[testimonialIndex];
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#1c1917", color: "#fff" }}>
+    <div className="min-h-screen flex flex-col bg-[#1c1917] text-white">
       {/* Top bar */}
       <div className="flex items-center justify-between px-6 py-4 absolute top-0 left-0 right-0 z-10">
         <Logo />
-        <button
-          className="flex items-center gap-2 px-3 py-1.5 rounded text-sm"
-          style={{
-            color: "#a3a3a3",
-            border: "1px solid #2e2e2e",
-            backgroundColor: "transparent",
-          }}
-        >
+        <button className="flex items-center gap-2 px-3 py-1.5 rounded text-sm border border-app-border text-neutral-400">
           <BookOpen size={14} />
           Documentation
         </button>
@@ -59,45 +52,29 @@ export function AuthLayout() {
       {/* Split layout */}
       <div className="flex flex-1">
         {/* Left panel */}
-        <div
-          className="flex flex-col justify-center px-12 py-24 w-full"
-          style={{ maxWidth: "600px", minHeight: "100vh" }}
-        >
+        <div className="flex flex-col justify-center px-12 py-24 w-full max-w-[600px] min-h-screen">
           <Outlet />
         </div>
 
         {/* Right panel */}
-        <div
-          className="flex-1 hidden md:flex flex-col items-center justify-center px-16"
-          style={{ backgroundColor: "#141410" }}
-        >
+        <div className="flex-1 hidden md:flex flex-col items-center justify-center px-16 bg-[#141410]">
           <div className="max-w-xl">
             <div
-              className="mb-6"
-              style={{
-                fontSize: "80px",
-                lineHeight: 1,
-                color: "#3ecf8e",
-                opacity: 0.4,
-                fontFamily: "Georgia, serif",
-              }}
+              className="mb-6 text-[80px] leading-none text-brand opacity-40"
+              style={{ fontFamily: "Georgia, serif" }}
             >
               "
             </div>
-            <p
-              className="text-white mb-8"
-              style={{ fontSize: "28px", lineHeight: "1.4", fontWeight: 400 }}
-            >
+            <p className="text-white text-[28px] leading-[1.4] font-normal mb-8">
               {testimonial.quote}
             </p>
             <div className="flex items-center gap-4">
               <img
                 src={testimonial.avatar}
                 alt={testimonial.author}
-                className="w-12 h-12 rounded-full object-cover"
-                style={{ border: "2px solid #2e2e2e" }}
+                className="w-12 h-12 rounded-full object-cover border-2 border-app-border"
               />
-              <span style={{ color: "#d4d4d4" }}>{testimonial.author}</span>
+              <span className="text-neutral-300">{testimonial.author}</span>
             </div>
           </div>
         </div>

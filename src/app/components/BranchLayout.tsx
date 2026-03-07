@@ -28,10 +28,7 @@ const mockBranches = [
   { id: "branch-04", name: "vendor-hub", status: "PAUSED", env: "STAGING" },
 ];
 
-const navItems: (
-  | { icon: React.ElementType; label: string; path: string }
-  | null
-)[] = [
+const navItems: ({ icon: React.ElementType; label: string; path: string } | null)[] = [
   { icon: LayoutDashboard, label: "Branch Overview", path: "" },
   { icon: Table2, label: "Supplier Data", path: "suppliers" },
   { icon: Search, label: "Query Builder", path: "query" },
@@ -70,10 +67,7 @@ export function BranchLayout() {
   const activePath = getActivePath();
 
   return (
-    <div
-      className="min-h-screen flex flex-col"
-      style={{ backgroundColor: "#171717", color: "#fff" }}
-    >
+    <div className="min-h-screen flex flex-col bg-neutral-900 text-white">
       <TopNav
         variant="branch"
         orgId={orgId}
@@ -85,37 +79,21 @@ export function BranchLayout() {
 
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar */}
-        <aside
-          className="flex flex-col flex-shrink-0"
-          style={{
-            width: "208px",
-            backgroundColor: "#171717",
-            borderRight: "1px solid #2e2e2e",
-            minHeight: "calc(100vh - 48px)",
-          }}
-        >
+        <aside className="flex flex-col flex-shrink-0 w-[208px] bg-neutral-900 border-r border-app-border min-h-[calc(100vh-48px)]">
           <nav className="flex-1 p-2 pt-3 space-y-0.5">
             {navItems.map((item, index) => {
               if (item === null) {
-                return (
-                  <div
-                    key={`divider-${index}`}
-                    className="my-2"
-                    style={{ borderTop: "1px solid #222" }}
-                  />
-                );
+                return <div key={`divider-${index}`} className="my-2 border-t border-[#222]" />;
               }
               const isActive = activePath === item.path;
-              const href =
-                item.path === "" ? basePath : `${basePath}/${item.path}`;
+              const href = item.path === "" ? basePath : `${basePath}/${item.path}`;
               return (
                 <Link
                   key={item.label}
                   to={href}
                   className={`flex items-center gap-2.5 px-2.5 py-2 rounded text-sm transition-colors ${
-                    isActive ? "bg-white/10" : "hover:bg-white/5"
+                    isActive ? "bg-white/10 text-white" : "text-neutral-500 hover:bg-white/5"
                   }`}
-                  style={{ color: isActive ? "#fff" : "#737373" }}
                 >
                   <item.icon size={15} className="flex-shrink-0" />
                   <span>{item.label}</span>
@@ -126,7 +104,7 @@ export function BranchLayout() {
         </aside>
 
         {/* Main content */}
-        <main className="flex-1 overflow-auto" style={{ backgroundColor: "#171717" }}>
+        <main className="flex-1 overflow-auto bg-neutral-900">
           <Outlet />
         </main>
       </div>

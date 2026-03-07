@@ -31,7 +31,6 @@ export function OrgLayout() {
   const location = useLocation();
 
   const currentOrg = orgs.find((o) => o.id === orgId) || orgs[0];
-
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   const getActivePath = () => {
@@ -44,22 +43,15 @@ export function OrgLayout() {
   const activePath = getActivePath();
 
   return (
-    <div
-      className="min-h-screen flex flex-col"
-      style={{ backgroundColor: "#171717", color: "#fff" }}
-    >
+    <div className="min-h-screen flex flex-col bg-neutral-900 text-white">
       <TopNav variant="org" orgId={orgId} orgName={currentOrg.name} />
 
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar */}
         <aside
-          className="flex flex-col flex-shrink-0 transition-all duration-200"
-          style={{
-            width: sidebarCollapsed ? "48px" : "208px",
-            backgroundColor: "#171717",
-            borderRight: "1px solid #2e2e2e",
-            minHeight: "calc(100vh - 48px)",
-          }}
+          className={`flex flex-col flex-shrink-0 transition-all duration-200 bg-neutral-900 border-r border-app-border min-h-[calc(100vh-48px)] ${
+            sidebarCollapsed ? "w-12" : "w-[208px]"
+          }`}
         >
           {/* Nav items */}
           <nav className="flex-1 p-2 pt-3 space-y-0.5">
@@ -71,12 +63,11 @@ export function OrgLayout() {
                   to={
                     item.path === ""
                       ? `/dashboard/org/${orgId}`
-                      : `/org/${orgId}/${item.path}`
+                      : `/dashboard/org/${orgId}/${item.path}`
                   }
                   className={`flex items-center gap-2.5 px-2 py-2 rounded text-sm transition-colors ${
-                    isActive ? "bg-white/10" : "hover:bg-white/5"
+                    isActive ? "bg-white/10 text-white" : "text-neutral-400 hover:bg-white/5"
                   }`}
-                  style={{ color: isActive ? "#fff" : "#a3a3a3" }}
                   title={sidebarCollapsed ? item.label : undefined}
                 >
                   <item.icon size={16} className="flex-shrink-0" />
@@ -90,8 +81,7 @@ export function OrgLayout() {
           <div className="p-2">
             <button
               onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-              className="w-full flex items-center justify-center px-2 py-2 rounded hover:bg-white/5 transition-colors"
-              style={{ color: "#555" }}
+              className="w-full flex items-center justify-center px-2 py-2 rounded text-[#555] hover:bg-white/5 transition-colors"
               title={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
             >
               <PanelLeft size={15} />

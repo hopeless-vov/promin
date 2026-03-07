@@ -65,7 +65,6 @@ src/
 - Use `cn()` helper from `./utils` for class merging
 - Path alias: `@` → `./src`
 - Inline styles are common (Figma export legacy) — migrate to Tailwind when editing
-- All pages currently use mock/hardcoded data — replace with Supabase calls
 - Environment variables prefixed with `VITE_` for Vite exposure
 
 ## Environment Variables

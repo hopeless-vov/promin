@@ -1,4 +1,3 @@
-import { BarChart2 } from "lucide-react";
 import {
   AreaChart,
   Area,
@@ -49,14 +48,9 @@ const stats = [
 function CustomTooltip({ active, payload, label }: any) {
   if (!active || !payload?.length) return null;
   return (
-    <div
-      className="px-3 py-2 rounded-lg text-xs"
-      style={{ backgroundColor: "#1e1e1e", border: "1px solid #2e2e2e", color: "#d4d4d4" }}
-    >
-      <p style={{ color: "#737373" }}>{label}</p>
-      <p className="mt-0.5" style={{ color: "#3ecf8e", fontWeight: 600 }}>
-        {payload[0].value?.toLocaleString()}
-      </p>
+    <div className="px-3 py-2 rounded-lg text-xs bg-surface border border-app-border text-neutral-300">
+      <p className="text-neutral-500">{label}</p>
+      <p className="mt-0.5 text-brand font-semibold">{payload[0].value?.toLocaleString()}</p>
     </div>
   );
 }
@@ -65,35 +59,23 @@ export function OrgUsage() {
   return (
     <div className="p-8">
       <div className="mb-6">
-        <h1 className="text-white mb-1" style={{ fontSize: "22px", fontWeight: 600 }}>
-          Usage
-        </h1>
-        <p className="text-sm" style={{ color: "#a3a3a3" }}>
+        <h1 className="text-white text-[22px] font-semibold mb-1">Usage</h1>
+        <p className="text-sm text-neutral-400">
           Monitor your organization's resource consumption this billing cycle.
         </p>
       </div>
 
       {/* Stat cards */}
-      <div className="grid grid-cols-2 gap-3 mb-8" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))" }}>
+      <div className="grid gap-3 mb-8" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))" }}>
         {stats.map((s) => (
-          <div
-            key={s.label}
-            className="p-4 rounded-xl"
-            style={{ backgroundColor: "#1e1e1e", border: "1px solid #2e2e2e" }}
-          >
-            <p className="text-xs mb-2" style={{ color: "#737373" }}>
-              {s.label}
-            </p>
+          <div key={s.label} className="p-4 rounded-xl bg-surface border border-app-border">
+            <p className="text-xs mb-2 text-neutral-500">{s.label}</p>
             <div className="flex items-baseline gap-1.5 mb-3">
-              <span className="text-white" style={{ fontSize: "20px", fontWeight: 600 }}>
-                {s.value}
-              </span>
-              <span className="text-xs" style={{ color: "#555" }}>
-                / {s.limit}
-              </span>
+              <span className="text-white text-[20px] font-semibold">{s.value}</span>
+              <span className="text-xs text-[#555]">/ {s.limit}</span>
             </div>
             {/* Progress bar */}
-            <div className="h-1 rounded-full overflow-hidden" style={{ backgroundColor: "#2e2e2e" }}>
+            <div className="h-1 rounded-full overflow-hidden bg-app-border">
               <div
                 className="h-full rounded-full"
                 style={{
@@ -102,9 +84,7 @@ export function OrgUsage() {
                 }}
               />
             </div>
-            <p className="text-xs mt-1.5" style={{ color: "#555" }}>
-              {s.pct}% used
-            </p>
+            <p className="text-xs mt-1.5 text-[#555]">{s.pct}% used</p>
           </div>
         ))}
       </div>
@@ -132,17 +112,10 @@ function ChartCard({
   unit: string;
 }) {
   return (
-    <div
-      className="p-5 rounded-xl"
-      style={{ backgroundColor: "#1e1e1e", border: "1px solid #2e2e2e" }}
-    >
+    <div className="p-5 rounded-xl bg-surface border border-app-border">
       <div className="mb-4">
-        <p className="text-sm text-white" style={{ fontWeight: 500 }}>
-          {title}
-        </p>
-        <p className="text-xs" style={{ color: "#555" }}>
-          {subtitle}
-        </p>
+        <p className="text-sm text-white font-medium">{title}</p>
+        <p className="text-xs text-[#555]">{subtitle}</p>
       </div>
       <ResponsiveContainer width="100%" height={160}>
         <AreaChart data={data} margin={{ top: 0, right: 0, left: -28, bottom: 0 }}>
