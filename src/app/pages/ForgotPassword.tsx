@@ -1,9 +1,27 @@
 import { useState } from "react";
 import { Link } from "react-router";
+import { useAuth } from "../AuthContext";
 
 export function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { resetPassword } = useAuth();
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!email) return;
+    setError("");
+    setLoading(true);
+    const { error } = await resetPassword(email);
+    setLoading(false);
+    if (error) {
+      setError(error.message);
+    } else {
+      setSent(true);
+    }
+  }
 
   return (
     <div className="flex-1 flex items-center justify-center px-6 py-16">
@@ -28,13 +46,19 @@ export function ForgotPassword() {
             </Link>
           </div>
         ) : (
-          <>
+          <form onSubmit={handleSubmit}>
             <h1 className="text-white text-[28px] font-semibold leading-tight mb-2">
               Forgot your password?
             </h1>
             <p className="mb-8 text-sm leading-relaxed text-neutral-400">
               Enter your email and we'll send you a code to reset the password
             </p>
+
+            {error && (
+              <div className="mb-4 px-3 py-2 rounded-lg text-sm bg-red-500/10 border border-red-500/30 text-red-400">
+                {error}
+              </div>
+            )}
 
             <div className="mb-4">
               <label className="block mb-1.5 text-sm text-neutral-300">Email</label>
@@ -50,10 +74,11 @@ export function ForgotPassword() {
             <div className="mb-4 h-4" />
 
             <button
-              onClick={() => email && setSent(true)}
-              className="w-full py-2.5 px-4 rounded-lg text-sm font-medium bg-brand/[13%] border border-brand/[33%] text-brand transition-opacity hover:opacity-90"
+              type="submit"
+              disabled={loading}
+              className="w-full py-2.5 px-4 rounded-lg text-sm font-medium bg-brand/[13%] border border-brand/[33%] text-brand transition-opacity hover:opacity-90 disabled:opacity-50"
             >
-              Send reset code
+              {loading ? "Sending..." : "Send reset code"}
             </button>
 
             <p className="text-center mt-4 text-sm text-neutral-400">
@@ -65,7 +90,7 @@ export function ForgotPassword() {
                 Sign In
               </Link>
             </p>
-          </>
+          </form>
         )}
       </div>
     </div>

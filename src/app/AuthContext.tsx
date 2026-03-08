@@ -8,6 +8,7 @@ interface AuthContextType {
   loading: boolean;
   signUp: (email: string, password: string) => ReturnType<typeof supabase.auth.signUp>;
   signIn: (email: string, password: string) => ReturnType<typeof supabase.auth.signInWithPassword>;
+  signInWithGoogle: () => ReturnType<typeof supabase.auth.signInWithOAuth>;
   signOut: () => ReturnType<typeof supabase.auth.signOut>;
   resetPassword: (email: string) => ReturnType<typeof supabase.auth.resetPasswordForEmail>;
 }
@@ -42,8 +43,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     loading,
     signUp: (email, password) => supabase.auth.signUp({ email, password }),
     signIn: (email, password) => supabase.auth.signInWithPassword({ email, password }),
+    signInWithGoogle: () =>
+      supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: { redirectTo: `${window.location.origin}/dashboard/organizations` },
+      }),
     signOut: () => supabase.auth.signOut(),
-    resetPassword: (email) => supabase.auth.resetPasswordForEmail(email),
+    resetPassword: (email) =>
+      supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/dashboard/sign-in`,
+      }),
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

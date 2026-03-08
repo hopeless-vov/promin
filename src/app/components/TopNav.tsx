@@ -10,6 +10,7 @@ import {
   GitBranch,
   Link2,
 } from "lucide-react";
+import { useAuth } from "../AuthContext";
 
 /* ─── shared data ─────────────────────────────────────────────────────────── */
 
@@ -182,8 +183,15 @@ function BranchDropdown({ orgId, branchId, onClose }: { orgId: string; branchId:
 
 function UserMenu() {
   const navigate = useNavigate();
+  const { user, signOut } = useAuth();
   const [open, setOpen] = useState(false);
   const [activeTheme, setActiveTheme] = useState("Classic Dark");
+
+  async function handleLogout() {
+    setOpen(false);
+    await signOut();
+    navigate("/dashboard/sign-in");
+  }
 
   return (
     <div className="relative">
@@ -199,7 +207,7 @@ function UserMenu() {
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
           <div className="absolute right-0 top-10 w-56 rounded-lg z-50 py-2 bg-surface border border-app-border shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
             <div className="px-3 py-2 mb-1 border-b border-app-border">
-              <span className="text-sm text-neutral-300">user@srm.com</span>
+              <span className="text-sm text-neutral-300">{user?.email ?? "user@srm.com"}</span>
             </div>
 
             {userMenuItems.map((item) => (
@@ -230,7 +238,7 @@ function UserMenu() {
 
             <div className="mt-1 pt-1 border-t border-app-border">
               <button
-                onClick={() => { setOpen(false); navigate("/dashboard/sign-in"); }}
+                onClick={handleLogout}
                 className="w-full text-left px-3 py-2 text-sm text-neutral-400 hover:bg-white/5 transition-colors"
               >
                 Log out
