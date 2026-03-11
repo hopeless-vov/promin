@@ -3,17 +3,14 @@ import { useNavigate } from "react-router";
 import { TopNav } from "../components/TopNav";
 import { OrganizationCard } from "../components/OrganizationCard";
 import { Search, Plus } from "lucide-react";
-
-const mockOrgs = [
-  { id: "vcuwjtqppzztgjwtvmta", name: "Acme Corp", plan: "Free Plan", branches: 2 },
-  { id: "oeasvtzqxumzbhtcqtmu", name: "GlobalTrade", plan: "Free Plan", branches: 2 },
-];
+import { useOrganizations } from "../../hooks/useOrganizations";
 
 export function Organizations() {
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
+  const { data: orgs = [], isLoading } = useOrganizations();
 
-  const filtered = mockOrgs.filter((org) =>
+  const filtered = orgs.filter((org) =>
     org.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -52,7 +49,13 @@ export function Organizations() {
           ))}
         </div>
 
-        {filtered.length === 0 && (
+        {isLoading && (
+          <div className="text-center py-16 text-[#555]">
+            <p className="text-sm">Loading organizations...</p>
+          </div>
+        )}
+
+        {!isLoading && filtered.length === 0 && (
           <div className="text-center py-16 text-[#555]">
             <p className="text-sm">No organizations found</p>
           </div>

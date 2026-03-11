@@ -11,13 +11,7 @@ import {
   Link2,
 } from "lucide-react";
 import { useAuth } from "../AuthContext";
-
-/* ─── shared data ─────────────────────────────────────────────────────────── */
-
-const orgs = [
-  { id: "vcuwjtqppzztgjwtvmta", name: "Acme Corp" },
-  { id: "oeasvtzqxumzbhtcqtmu", name: "GlobalTrade" },
-];
+import { useOrganizations } from "../../hooks/useOrganizations";
 
 const mockBranches = [
   { id: "branch-01", name: "acme-crm", status: "ACTIVE", env: "PRODUCTION" },
@@ -66,6 +60,7 @@ function Slash() {
 function OrgDropdown({ orgId, orgName, onClose }: { orgId: string; orgName: string; onClose: () => void }) {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
+  const { data: orgs = [] } = useOrganizations();
 
   const filtered = orgs.filter((o) => o.name.toLowerCase().includes(search.toLowerCase()));
 

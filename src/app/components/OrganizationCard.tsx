@@ -3,8 +3,7 @@ import { Link } from "react-router";
 export interface Org {
   id: string;
   name: string;
-  plan: string;
-  branches: number;
+  type: string;
 }
 
 function OrgIcon() {
@@ -35,9 +34,9 @@ export function OrganizationCard({ org }: { org: Org }) {
       <div>
         <p className="text-white text-sm font-medium">{org.name}</p>
         <p className="text-xs mt-0.5 flex items-center gap-1.5 text-neutral-400">
-          {org.plan}
+          Free Plan
           <span className="text-[#383838]">•</span>
-          {org.branches} branches
+          {org.type}
         </p>
       </div>
     </Link>

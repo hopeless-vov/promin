@@ -10,11 +10,7 @@ import {
   Settings,
   PanelLeft,
 } from "lucide-react";
-
-const orgs = [
-  { id: "vcuwjtqppzztgjwtvmta", name: "Acme Corp" },
-  { id: "oeasvtzqxumzbhtcqtmu", name: "GlobalTrade" },
-];
+import { useOrganizations } from "../../hooks/useOrganizations";
 
 const navItems = [
   { icon: GitBranch, label: "Branches", path: "" },
@@ -30,7 +26,8 @@ export function OrgLayout() {
   const orgId = params.orgId || "vcuwjtqppzztgjwtvmta";
   const location = useLocation();
 
-  const currentOrg = orgs.find((o) => o.id === orgId) || orgs[0];
+  const { data: orgs = [] } = useOrganizations();
+  const currentOrg = orgs.find((o) => o.id === orgId) || { id: orgId, name: "Organization" };
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   const getActivePath = () => {

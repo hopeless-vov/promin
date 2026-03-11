@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import { TopNav } from "../components/TopNav";
 import { ChevronDown } from "lucide-react";
+import { useCreateOrganization } from "../../hooks/useOrganizations";
 
 const inputCls =
   "w-full rounded-md text-sm bg-surface border border-app-border text-neutral-300 px-3 py-2 outline-none focus:border-brand transition-[border-color]";
@@ -14,6 +15,8 @@ export function NewOrganization() {
   const [name, setName] = useState("");
   const [orgType, setOrgType] = useState("Personal");
   const [plan, setPlan] = useState("Free - $0/month");
+  const createOrg = useCreateOrganization();
+  const [error, setError] = useState("");
 
   return (
     <div className="text-white">
@@ -106,6 +109,13 @@ export function NewOrganization() {
             </div>
           </div>
 
+          {/* Error */}
+          {error && (
+            <div className="px-6 py-3 text-sm text-red-400 border-t border-app-border">
+              {error}
+            </div>
+          )}
+
           {/* Footer */}
           <div className="px-6 py-4 flex items-center justify-between border-t border-app-border">
             <button
@@ -115,10 +125,19 @@ export function NewOrganization() {
               Cancel
             </button>
             <button
-              onClick={() => navigate("/dashboard/org/vcuwjtqppzztgjwtvmta")}
-              className="px-4 py-2 rounded-lg text-sm font-medium bg-brand/[13%] border border-brand/[33%] text-brand transition-opacity hover:opacity-90"
+              disabled={createOrg.isPending || !name.trim()}
+              onClick={async () => {
+                setError("");
+                try {
+                  const org = await createOrg.mutateAsync({ name: name.trim(), type: orgType });
+                  navigate(`/dashboard/org/${org.id}`);
+                } catch (e: any) {
+                  setError(e.message || "Failed to create organization");
+                }
+              }}
+              className="px-4 py-2 rounded-lg text-sm font-medium bg-brand/[13%] border border-brand/[33%] text-brand transition-opacity hover:opacity-90 disabled:opacity-50"
             >
-              Create organization
+              {createOrg.isPending ? "Creating..." : "Create organization"}
             </button>
           </div>
         </div>
