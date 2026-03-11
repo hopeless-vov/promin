@@ -3,12 +3,10 @@ import { useNavigate } from "react-router";
 import { TopNav } from "../components/TopNav";
 import { ChevronDown } from "lucide-react";
 import { useCreateOrganization } from "../../hooks/useOrganizations";
-
-const inputCls =
-  "w-full rounded-md text-sm bg-surface border border-app-border text-neutral-300 px-3 py-2 outline-none focus:border-brand transition-[border-color]";
-
-const selectCls =
-  "w-full appearance-none rounded-md text-sm bg-surface border border-app-border text-neutral-300 pl-3 pr-9 py-2.5 outline-none focus:border-brand transition-[border-color] cursor-pointer";
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
+import { Card } from "../components/ui/card";
+import { Separator } from "../components/ui/separator";
 
 export function NewOrganization() {
   const navigate = useNavigate();
@@ -19,49 +17,52 @@ export function NewOrganization() {
   const [error, setError] = useState("");
 
   return (
-    <div className="text-white">
+    <div>
       <TopNav variant="plain" title="New organization" />
 
       <div className="flex items-start justify-center px-6 py-12">
-        <div className="w-full max-w-2xl rounded-xl overflow-hidden bg-surface border border-app-border">
+        <Card className="w-full max-w-2xl overflow-hidden">
           {/* Header */}
-          <div className="px-6 py-5 border-b border-app-border">
-            <h2 className="text-white text-base font-semibold mb-1">Create a new organization</h2>
-            <p className="text-sm leading-relaxed text-neutral-400">
+          <div className="px-6 py-5">
+            <h2 className="text-base font-semibold mb-1">Create a new organization</h2>
+            <p className="text-sm leading-relaxed text-muted-foreground">
               Organizations are a way to group your branches together. Each organization can be
               configured with different team members and billing settings.
             </p>
           </div>
 
+          <Separator />
+
           {/* Name field */}
-          <div className="px-6 py-5 grid grid-cols-3 gap-6 items-start border-b border-app-border">
+          <div className="px-6 py-5 grid grid-cols-3 gap-6 items-start">
             <div>
-              <label className="text-sm font-medium text-neutral-300">Name</label>
+              <label className="text-sm font-medium text-secondary-foreground">Name</label>
             </div>
             <div className="col-span-2">
-              <input
+              <Input
                 placeholder="Organization name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className={inputCls}
               />
-              <p className="text-xs mt-2 text-[#555]">
+              <p className="text-xs mt-2 text-subtle">
                 What's the name of your company or team? You can change this later.
               </p>
             </div>
           </div>
 
+          <Separator />
+
           {/* Type field */}
-          <div className="px-6 py-5 grid grid-cols-3 gap-6 items-start border-b border-app-border">
+          <div className="px-6 py-5 grid grid-cols-3 gap-6 items-start">
             <div>
-              <label className="text-sm font-medium text-neutral-300">Type</label>
+              <label className="text-sm font-medium text-secondary-foreground">Type</label>
             </div>
             <div className="col-span-2">
               <div className="relative">
                 <select
                   value={orgType}
                   onChange={(e) => setOrgType(e.target.value)}
-                  className={selectCls}
+                  className="w-full appearance-none rounded-md text-sm bg-card border border-border text-secondary-foreground pl-3 pr-9 py-2.5 outline-none focus:border-ring transition-[border-color] cursor-pointer"
                 >
                   <option>Personal</option>
                   <option>Company</option>
@@ -70,24 +71,26 @@ export function NewOrganization() {
                 </select>
                 <ChevronDown
                   size={14}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-[#555]"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-subtle"
                 />
               </div>
-              <p className="text-xs mt-2 text-[#555]">What best describes your organization?</p>
+              <p className="text-xs mt-2 text-subtle">What best describes your organization?</p>
             </div>
           </div>
+
+          <Separator />
 
           {/* Plan field */}
           <div className="px-6 py-5 grid grid-cols-3 gap-6 items-start">
             <div>
-              <label className="text-sm font-medium text-neutral-300">Plan</label>
+              <label className="text-sm font-medium text-secondary-foreground">Plan</label>
             </div>
             <div className="col-span-2">
               <div className="relative">
                 <select
                   value={plan}
                   onChange={(e) => setPlan(e.target.value)}
-                  className={selectCls}
+                  className="w-full appearance-none rounded-md text-sm bg-card border border-border text-secondary-foreground pl-3 pr-9 py-2.5 outline-none focus:border-ring transition-[border-color] cursor-pointer"
                 >
                   <option>Free - $0/month</option>
                   <option>Pro - $25/month</option>
@@ -96,12 +99,12 @@ export function NewOrganization() {
                 </select>
                 <ChevronDown
                   size={14}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-[#555]"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-subtle"
                 />
               </div>
-              <p className="text-xs mt-2 text-[#555]">
+              <p className="text-xs mt-2 text-subtle">
                 Which plan fits your organization's needs best?{" "}
-                <a href="#" className="underline hover:opacity-80 text-neutral-400">
+                <a href="#" className="underline hover:opacity-80 text-muted-foreground">
                   Learn more
                 </a>
                 .
@@ -111,20 +114,24 @@ export function NewOrganization() {
 
           {/* Error */}
           {error && (
-            <div className="px-6 py-3 text-sm text-red-400 border-t border-app-border">
-              {error}
-            </div>
+            <>
+              <Separator />
+              <div className="px-6 py-3 text-sm text-red-400">
+                {error}
+              </div>
+            </>
           )}
 
           {/* Footer */}
-          <div className="px-6 py-4 flex items-center justify-between border-t border-app-border">
-            <button
+          <Separator />
+          <div className="px-6 py-4 flex items-center justify-between">
+            <Button
+              variant="outline"
               onClick={() => navigate("/dashboard/organizations")}
-              className="px-4 py-2 rounded-lg text-sm text-neutral-400 border border-app-border bg-transparent transition-colors hover:bg-white/5"
             >
               Cancel
-            </button>
-            <button
+            </Button>
+            <Button
               disabled={createOrg.isPending || !name.trim()}
               onClick={async () => {
                 setError("");
@@ -135,12 +142,11 @@ export function NewOrganization() {
                   setError(e.message || "Failed to create organization");
                 }
               }}
-              className="px-4 py-2 rounded-lg text-sm font-medium bg-brand/[13%] border border-brand/[33%] text-brand transition-opacity hover:opacity-90 disabled:opacity-50"
             >
               {createOrg.isPending ? "Creating..." : "Create organization"}
-            </button>
+            </Button>
           </div>
-        </div>
+        </Card>
       </div>
     </div>
   );

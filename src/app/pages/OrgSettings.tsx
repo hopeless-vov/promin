@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { useParams } from "react-router";
 import { AlertTriangle } from "lucide-react";
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
+import { Card } from "../components/ui/card";
+import { Separator } from "../components/ui/separator";
 
 export function OrgSettings() {
   const { orgId } = useParams();
@@ -10,93 +14,89 @@ export function OrgSettings() {
 
   return (
     <div className="p-8 max-w-2xl">
-      <h1 className="text-white text-[22px] font-semibold mb-6">Organization Settings</h1>
+      <h1 className="text-[22px] font-semibold mb-6">Organization Settings</h1>
 
       {/* General section */}
       <section className="mb-8">
-        <h2 className="text-xs mb-4 text-[#555] font-medium tracking-[0.07em]">GENERAL</h2>
-        <div className="rounded-xl overflow-hidden border border-app-border">
+        <h2 className="text-xs mb-4 text-subtle font-medium tracking-[0.07em]">GENERAL</h2>
+        <Card className="overflow-hidden">
           {/* Name */}
-          <div className="p-5 border-b border-app-border bg-surface">
-            <label className="block text-sm mb-1.5 text-neutral-300 font-medium">
+          <div className="p-5">
+            <label className="block text-sm mb-1.5 text-secondary-foreground font-medium">
               Organization name
             </label>
-            <p className="text-xs mb-3 text-neutral-500">
+            <p className="text-xs mb-3 text-muted-foreground">
               This is your organization's display name across the platform.
             </p>
-            <input
+            <Input
               value={orgName}
               onChange={(e) => setOrgName(e.target.value)}
-              className="w-full rounded-lg text-sm outline-none px-3 py-2 bg-neutral-900 border border-app-border text-neutral-300 focus:border-brand transition-[border-color]"
             />
           </div>
 
+          <Separator />
+
           {/* Slug */}
-          <div className="p-5 bg-surface">
-            <label className="block text-sm mb-1.5 text-neutral-300 font-medium">
+          <div className="p-5">
+            <label className="block text-sm mb-1.5 text-secondary-foreground font-medium">
               Organization slug
             </label>
-            <p className="text-xs mb-3 text-neutral-500">
+            <p className="text-xs mb-3 text-muted-foreground">
               Used in URLs and API references. Changing this will update all existing links.
             </p>
-            <div className="flex items-center rounded-lg overflow-hidden border border-app-border bg-neutral-900">
-              <span className="px-3 py-2 text-sm flex-shrink-0 select-none border-r border-app-border bg-surface-dark text-[#555]">
+            <div className="flex items-center rounded-lg overflow-hidden border border-border bg-card">
+              <span className="px-3 py-2 text-sm flex-shrink-0 select-none border-r border-border bg-surface-dark text-subtle">
                 org/
               </span>
               <input
                 value={slug}
                 onChange={(e) => setSlug(e.target.value)}
-                className="flex-1 text-sm outline-none bg-transparent px-3 py-2 text-neutral-300"
+                className="flex-1 text-sm outline-none bg-transparent px-3 py-2 text-secondary-foreground"
               />
             </div>
           </div>
 
           {/* Save footer */}
-          <div className="px-5 py-3 flex justify-end border-t border-app-border bg-surface-dark">
-            <button className="px-4 py-2 rounded-lg text-sm font-medium bg-brand/[13%] border border-brand/[33%] text-brand transition-opacity hover:opacity-90">
-              Save changes
-            </button>
+          <Separator />
+          <div className="px-5 py-3 flex justify-end bg-surface-dark">
+            <Button>Save changes</Button>
           </div>
-        </div>
+        </Card>
       </section>
 
       {/* Danger zone */}
       <section>
-        <h2 className="text-xs mb-4 text-[#555] font-medium tracking-[0.07em]">DANGER ZONE</h2>
-        <div className="rounded-xl overflow-hidden border border-red-900/33">
-          <div className="p-5 bg-surface">
+        <h2 className="text-xs mb-4 text-subtle font-medium tracking-[0.07em]">DANGER ZONE</h2>
+        <Card className="overflow-hidden border-red-900/33">
+          <div className="p-5">
             <div className="flex items-start gap-3 mb-4">
               <AlertTriangle size={16} className="mt-0.5 flex-shrink-0 text-red-400" />
               <div>
-                <p className="text-sm text-neutral-300 font-medium">Delete this organization</p>
-                <p className="text-xs mt-1 leading-relaxed text-neutral-500">
+                <p className="text-sm text-secondary-foreground font-medium">Delete this organization</p>
+                <p className="text-xs mt-1 leading-relaxed text-muted-foreground">
                   Permanently delete this organization and all associated branches, members, and data. This
                   action cannot be undone.
                 </p>
               </div>
             </div>
 
-            <label className="block text-xs mb-1.5 text-neutral-400">
-              Type <span className="text-neutral-300">delete</span> to confirm
+            <label className="block text-xs mb-1.5 text-muted-foreground">
+              Type <span className="text-secondary-foreground">delete</span> to confirm
             </label>
-            <input
+            <Input
               value={deleteConfirm}
               onChange={(e) => setDeleteConfirm(e.target.value)}
               placeholder="delete"
-              className="w-full rounded-lg text-sm outline-none mb-3 px-3 py-2 bg-neutral-900 border border-red-900/33 text-neutral-300"
+              className="mb-3 border-red-900/33"
             />
-            <button
+            <Button
+              variant={deleteConfirm === "delete" ? "destructive" : "outline"}
               disabled={deleteConfirm !== "delete"}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-opacity ${
-                deleteConfirm === "delete"
-                  ? "bg-red-900/50 border border-red-500/27 text-red-300 cursor-pointer"
-                  : "bg-[#2a2a2a] border border-[#333] text-[#555] cursor-not-allowed"
-              }`}
             >
               Delete organization
-            </button>
+            </Button>
           </div>
-        </div>
+        </Card>
       </section>
     </div>
   );

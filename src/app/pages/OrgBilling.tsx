@@ -1,4 +1,7 @@
 import { CreditCard, Check, Zap } from "lucide-react";
+import { Button } from "../components/ui/button";
+import { Badge } from "../components/ui/badge";
+import { Card } from "../components/ui/card";
 
 const plans = [
   {
@@ -45,51 +48,45 @@ export function OrgBilling() {
   return (
     <div className="p-8">
       <div className="mb-6">
-        <h1 className="text-white text-[22px] font-semibold mb-1">Billing</h1>
-        <p className="text-sm text-neutral-400">Manage your subscription plan and payment details.</p>
+        <h1 className="text-[22px] font-semibold mb-1">Billing</h1>
+        <p className="text-sm text-muted-foreground">Manage your subscription plan and payment details.</p>
       </div>
 
       {/* Current plan banner */}
-      <div className="flex items-center justify-between p-4 rounded-xl mb-8 bg-surface border border-app-border">
+      <Card className="flex-row items-center justify-between p-4 mb-8">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-lg flex items-center justify-center bg-brand/[13%] border border-brand/25">
             <Zap size={16} className="text-brand" />
           </div>
           <div>
-            <p className="text-sm text-white font-medium">
+            <p className="text-sm font-medium">
               You're on the <span className="text-brand">Free</span> plan
             </p>
-            <p className="text-xs text-neutral-500">Next billing date: N/A</p>
+            <p className="text-xs text-muted-foreground">Next billing date: N/A</p>
           </div>
         </div>
-        <button className="px-4 py-2 rounded-lg text-sm font-medium bg-brand/[13%] border border-brand/[33%] text-brand transition-opacity hover:opacity-90">
-          Upgrade plan
-        </button>
-      </div>
+        <Button>Upgrade plan</Button>
+      </Card>
 
       {/* Plans */}
-      <h2 className="text-xs mb-3 text-[#555] font-medium tracking-[0.07em]">PLANS</h2>
+      <h2 className="text-xs mb-3 text-subtle font-medium tracking-[0.07em]">PLANS</h2>
       <div className="grid gap-4 mb-10" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))" }}>
         {plans.map((plan) => (
-          <div
+          <Card
             key={plan.id}
-            className={`p-5 rounded-xl flex flex-col gap-4 bg-surface ${
-              plan.current ? "border border-brand/[33%]" : "border border-app-border"
-            }`}
+            className={`p-5 gap-4 ${plan.current ? "border-brand/[33%]" : ""}`}
           >
             <div>
               <div className="flex items-center justify-between mb-1">
-                <p className="text-sm text-white font-semibold">{plan.name}</p>
+                <p className="text-sm font-semibold">{plan.name}</p>
                 {plan.current && (
-                  <span className="text-xs px-2 py-0.5 rounded-full bg-brand/[13%] border border-brand/25 text-brand font-medium">
-                    Current
-                  </span>
+                  <Badge>Current</Badge>
                 )}
               </div>
-              <p className="text-xs mb-3 text-neutral-500">{plan.description}</p>
+              <p className="text-xs mb-3 text-muted-foreground">{plan.description}</p>
               <div className="flex items-baseline gap-1">
-                <span className="text-white text-[28px] font-bold">{plan.price}</span>
-                <span className="text-xs text-[#555]">{plan.period}</span>
+                <span className="text-[28px] font-bold">{plan.price}</span>
+                <span className="text-xs text-subtle">{plan.period}</span>
               </div>
             </div>
 
@@ -97,70 +94,67 @@ export function OrgBilling() {
               {plan.features.map((f) => (
                 <li key={f} className="flex items-start gap-2">
                   <Check size={13} className="mt-0.5 flex-shrink-0 text-brand" />
-                  <span className="text-xs text-neutral-400">{f}</span>
+                  <span className="text-xs text-muted-foreground">{f}</span>
                 </li>
               ))}
             </ul>
 
             <div className="mt-auto">
               {plan.current ? (
-                <button
-                  disabled
-                  className="w-full py-2 rounded-lg text-sm cursor-not-allowed border border-app-border text-[#555]"
-                >
+                <Button variant="outline" disabled className="w-full">
                   Current plan
-                </button>
+                </Button>
               ) : (
-                <button className="w-full py-2 rounded-lg text-sm font-semibold bg-brand text-neutral-950 transition-opacity hover:opacity-90">
+                <Button variant="solid" className="w-full">
                   Upgrade to {plan.name}
-                </button>
+                </Button>
               )}
             </div>
-          </div>
+          </Card>
         ))}
       </div>
 
       {/* Payment method */}
-      <h2 className="text-xs mb-3 text-[#555] font-medium tracking-[0.07em]">PAYMENT METHOD</h2>
-      <div className="flex items-center justify-between p-4 rounded-xl mb-8 bg-surface border border-app-border">
-        <div className="flex items-center gap-3 text-neutral-500">
+      <h2 className="text-xs mb-3 text-subtle font-medium tracking-[0.07em]">PAYMENT METHOD</h2>
+      <Card className="flex-row items-center justify-between p-4 mb-8">
+        <div className="flex items-center gap-3 text-muted-foreground">
           <CreditCard size={16} />
           <span className="text-sm">No payment method on file</span>
         </div>
-        <button className="px-3 py-1.5 rounded text-xs border border-app-border text-neutral-400 transition-colors hover:bg-white/5">
+        <Button variant="outline" size="sm">
           Add card
-        </button>
-      </div>
+        </Button>
+      </Card>
 
       {/* Invoice history */}
-      <h2 className="text-xs mb-3 text-[#555] font-medium tracking-[0.07em]">INVOICE HISTORY</h2>
-      <div className="rounded-xl overflow-hidden border border-app-border">
+      <h2 className="text-xs mb-3 text-subtle font-medium tracking-[0.07em]">INVOICE HISTORY</h2>
+      <Card className="overflow-hidden">
         <div
-          className="grid px-4 py-3 bg-surface-dark border-b border-app-border"
+          className="grid px-4 py-3 bg-surface-dark border-b border-border"
           style={{ gridTemplateColumns: "1fr 160px 120px 100px" }}
         >
           {["INVOICE", "DATE", "AMOUNT", "STATUS"].map((h) => (
-            <span key={h} className="text-xs text-[#555] font-medium tracking-[0.06em]">{h}</span>
+            <span key={h} className="text-xs text-subtle font-medium tracking-[0.06em]">{h}</span>
           ))}
         </div>
         {invoices.map((inv, i) => (
           <div
             key={inv.id}
-            className={`grid items-center px-4 py-3 bg-surface ${
-              i < invoices.length - 1 ? "border-b border-app-border" : ""
+            className={`grid items-center px-4 py-3 ${
+              i < invoices.length - 1 ? "border-b border-border" : ""
             }`}
             style={{ gridTemplateColumns: "1fr 160px 120px 100px" }}
           >
-            <span className="text-sm text-neutral-300">{inv.id}</span>
-            <span className="text-sm text-neutral-500">{inv.date}</span>
-            <span className="text-sm text-neutral-300">{inv.amount}</span>
-            <span className="text-xs px-2 py-0.5 rounded-full inline-flex items-center gap-1 w-fit bg-brand/[8%] border border-brand/[19%] text-brand">
+            <span className="text-sm text-secondary-foreground">{inv.id}</span>
+            <span className="text-sm text-muted-foreground">{inv.date}</span>
+            <span className="text-sm text-secondary-foreground">{inv.amount}</span>
+            <Badge className="w-fit">
               <Check size={10} />
               {inv.status}
-            </span>
+            </Badge>
           </div>
         ))}
-      </div>
+      </Card>
     </div>
   );
 }

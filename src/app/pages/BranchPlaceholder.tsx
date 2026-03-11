@@ -92,12 +92,12 @@ export function BranchPlaceholder() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-48px)] p-16 text-center">
-      <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 bg-surface border border-app-border">
+      <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 bg-card border border-border">
         <Icon size={20} className="text-brand" />
       </div>
-      <h2 className="text-white text-lg font-semibold mb-2">{page.label}</h2>
-      <p className="text-sm max-w-xs leading-relaxed text-neutral-500">{page.description}</p>
-      <span className="mt-6 text-xs px-3 py-1.5 rounded-full bg-surface border border-app-border text-[#555]">
+      <h2 className="text-lg font-semibold mb-2">{page.label}</h2>
+      <p className="text-sm max-w-xs leading-relaxed text-muted-foreground">{page.description}</p>
+      <span className="mt-6 text-xs px-3 py-1.5 rounded-full bg-card border border-border text-subtle">
         Coming soon
       </span>
     </div>

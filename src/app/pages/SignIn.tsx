@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { Eye, EyeOff, Lock } from "lucide-react";
 import { useAuth } from "../AuthContext";
-
-const inputCls =
-  "w-full rounded-md text-sm bg-surface border border-app-border text-neutral-300 px-3 py-2 outline-none focus:border-brand transition-[border-color]";
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
+import { Separator } from "../components/ui/separator";
 
 export function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
@@ -35,20 +35,21 @@ export function SignIn() {
 
   return (
     <form onSubmit={handleSubmit} className="w-full max-w-sm">
-      <h1 className="text-white text-[28px] font-semibold leading-tight mb-1">Welcome back</h1>
-      <p className="mb-8 text-neutral-400 text-sm">Sign in to your account</p>
+      <h1 className="text-[28px] font-semibold leading-tight mb-1">Welcome back</h1>
+      <p className="mb-8 text-muted-foreground text-sm">Sign in to your account</p>
 
       {error && (
-        <div className="mb-4 px-3 py-2 rounded-lg text-sm bg-red-500/10 border border-red-500/30 text-red-400">
+        <div className="mb-4 px-3 py-2 rounded-lg text-sm bg-destructive/10 border border-destructive/30 text-red-400">
           {error}
         </div>
       )}
 
       {/* Gmail button */}
-      <button
+      <Button
         type="button"
+        variant="secondary"
         onClick={handleGoogleSignIn}
-        className="w-full flex items-center justify-center gap-2.5 py-2.5 px-4 rounded-lg mb-4 text-sm bg-surface border border-app-border text-neutral-300 transition-colors hover:bg-white/5"
+        className="w-full justify-center gap-2.5 py-2.5 mb-4"
       >
         <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none">
           <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z" fill="#4285F4"/>
@@ -57,50 +58,49 @@ export function SignIn() {
           <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
         </svg>
         Continue with Gmail
-      </button>
+      </Button>
 
       {/* Divider */}
       <div className="flex items-center gap-3 mb-4">
-        <div className="flex-1 h-px bg-app-border" />
-        <span className="text-sm text-[#555]">or</span>
-        <div className="flex-1 h-px bg-app-border" />
+        <Separator className="flex-1" />
+        <span className="text-sm text-subtle">or</span>
+        <Separator className="flex-1" />
       </div>
 
       {/* Email */}
       <div className="mb-4">
-        <label className="block mb-1.5 text-sm text-neutral-300">Email</label>
-        <input
+        <label className="block mb-1.5 text-sm text-secondary-foreground">Email</label>
+        <Input
           type="email"
           placeholder="you@example.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className={inputCls}
         />
       </div>
 
       {/* Password */}
       <div className="mb-6">
         <div className="flex items-center justify-between mb-1.5">
-          <label className="text-sm text-neutral-300">Password</label>
+          <label className="text-sm text-secondary-foreground">Password</label>
           <Link
             to="/dashboard/forgot-password"
-            className="text-sm text-neutral-400 hover:opacity-80 transition-opacity"
+            className="text-sm text-muted-foreground hover:opacity-80 transition-opacity"
           >
             Forgot password?
           </Link>
         </div>
         <div className="relative">
-          <input
+          <Input
             type={showPassword ? "text" : "password"}
             placeholder="••••••••"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className={`${inputCls} pr-10`}
+            className="pr-10"
           />
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-[#555]"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-subtle"
           >
             {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
           </button>
@@ -108,24 +108,20 @@ export function SignIn() {
       </div>
 
       {/* Submit */}
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full py-2.5 px-4 rounded-lg text-sm font-medium bg-brand/[13%] border border-brand/[33%] text-brand transition-opacity hover:opacity-90 disabled:opacity-50"
-      >
+      <Button type="submit" disabled={loading} className="w-full py-2.5">
         {loading ? "Signing in..." : "Sign in"}
-      </button>
+      </Button>
 
       {/* Sign up link */}
-      <p className="text-center mt-4 text-sm text-neutral-400">
+      <p className="text-center mt-4 text-sm text-muted-foreground">
         Don't have an account?{" "}
-        <Link to="/dashboard/sign-up" className="underline text-neutral-300 hover:opacity-80 transition-opacity">
+        <Link to="/dashboard/sign-up" className="underline text-secondary-foreground hover:opacity-80 transition-opacity">
           Sign up
         </Link>
       </p>
 
       {/* Terms */}
-      <p className="text-center mt-8 text-xs leading-relaxed text-[#555]">
+      <p className="text-center mt-8 text-xs leading-relaxed text-subtle">
         By continuing, you agree to our{" "}
         <a href="#" className="underline hover:opacity-80">Terms of Service</a>
         {" "}and{" "}

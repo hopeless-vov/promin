@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { Card } from "./ui/card";
 
 export interface Org {
   id: string;
@@ -8,7 +9,7 @@ export interface Org {
 
 function OrgIcon() {
   return (
-    <div className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 bg-[#2a2a2a] border border-[#383838]">
+    <div className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 bg-muted border border-border">
       <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5">
         <circle cx="12" cy="8" r="3.5" stroke="#a3a3a3" strokeWidth="1.3" />
         <path
@@ -26,19 +27,21 @@ function OrgIcon() {
 
 export function OrganizationCard({ org }: { org: Org }) {
   return (
-    <Link
-      to={`/dashboard/org/${org.id}`}
-      className="flex items-center gap-3 p-4 rounded-lg bg-surface border border-app-border transition-colors hover:bg-white/5"
-    >
-      <OrgIcon />
-      <div>
-        <p className="text-white text-sm font-medium">{org.name}</p>
-        <p className="text-xs mt-0.5 flex items-center gap-1.5 text-neutral-400">
-          Free Plan
-          <span className="text-[#383838]">•</span>
-          {org.type}
-        </p>
-      </div>
-    </Link>
+    <Card className="hover:bg-white/5 transition-colors">
+      <Link
+        to={`/dashboard/org/${org.id}`}
+        className="flex items-center gap-3 p-4"
+      >
+        <OrgIcon />
+        <div>
+          <p className="text-sm font-medium">{org.name}</p>
+          <p className="text-xs mt-0.5 flex items-center gap-1.5 text-muted-foreground">
+            Free Plan
+            <span className="text-border">•</span>
+            {org.type}
+          </p>
+        </div>
+      </Link>
+    </Card>
   );
 }

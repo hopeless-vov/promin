@@ -7,6 +7,8 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { Card } from "../components/ui/card";
+import { Progress } from "../components/ui/progress";
 
 const apiData = [
   { day: "Mar 1", requests: 12400 },
@@ -48,8 +50,8 @@ const stats = [
 function CustomTooltip({ active, payload, label }: any) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="px-3 py-2 rounded-lg text-xs bg-surface border border-app-border text-neutral-300">
-      <p className="text-neutral-500">{label}</p>
+    <div className="px-3 py-2 rounded-lg text-xs bg-card border border-border text-secondary-foreground">
+      <p className="text-muted-foreground">{label}</p>
       <p className="mt-0.5 text-brand font-semibold">{payload[0].value?.toLocaleString()}</p>
     </div>
   );
@@ -59,8 +61,8 @@ export function OrgUsage() {
   return (
     <div className="p-8">
       <div className="mb-6">
-        <h1 className="text-white text-[22px] font-semibold mb-1">Usage</h1>
-        <p className="text-sm text-neutral-400">
+        <h1 className="text-[22px] font-semibold mb-1">Usage</h1>
+        <p className="text-sm text-muted-foreground">
           Monitor your organization's resource consumption this billing cycle.
         </p>
       </div>
@@ -68,24 +70,15 @@ export function OrgUsage() {
       {/* Stat cards */}
       <div className="grid gap-3 mb-8" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))" }}>
         {stats.map((s) => (
-          <div key={s.label} className="p-4 rounded-xl bg-surface border border-app-border">
-            <p className="text-xs mb-2 text-neutral-500">{s.label}</p>
+          <Card key={s.label} className="p-4">
+            <p className="text-xs mb-2 text-muted-foreground">{s.label}</p>
             <div className="flex items-baseline gap-1.5 mb-3">
-              <span className="text-white text-[20px] font-semibold">{s.value}</span>
-              <span className="text-xs text-[#555]">/ {s.limit}</span>
+              <span className="text-[20px] font-semibold">{s.value}</span>
+              <span className="text-xs text-subtle">/ {s.limit}</span>
             </div>
-            {/* Progress bar */}
-            <div className="h-1 rounded-full overflow-hidden bg-app-border">
-              <div
-                className="h-full rounded-full"
-                style={{
-                  width: `${s.pct}%`,
-                  backgroundColor: s.pct > 80 ? "#f87171" : "#3ecf8e",
-                }}
-              />
-            </div>
-            <p className="text-xs mt-1.5 text-[#555]">{s.pct}% used</p>
-          </div>
+            <Progress value={s.pct} className={s.pct > 80 ? "[&>[data-slot=progress-indicator]]:bg-red-400" : ""} />
+            <p className="text-xs mt-1.5 text-subtle">{s.pct}% used</p>
+          </Card>
         ))}
       </div>
 
@@ -112,10 +105,10 @@ function ChartCard({
   unit: string;
 }) {
   return (
-    <div className="p-5 rounded-xl bg-surface border border-app-border">
+    <Card className="p-5">
       <div className="mb-4">
-        <p className="text-sm text-white font-medium">{title}</p>
-        <p className="text-xs text-[#555]">{subtitle}</p>
+        <p className="text-sm font-medium">{title}</p>
+        <p className="text-xs text-subtle">{subtitle}</p>
       </div>
       <ResponsiveContainer width="100%" height={160}>
         <AreaChart data={data} margin={{ top: 0, right: 0, left: -28, bottom: 0 }}>
@@ -145,6 +138,6 @@ function ChartCard({
           />
         </AreaChart>
       </ResponsiveContainer>
-    </div>
+    </Card>
   );
 }
