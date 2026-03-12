@@ -1,0 +1,350 @@
+{
+  "common": {
+    "email": "Email",
+    "password": "Password",
+    "cancel": "Cancel",
+    "save": "Save changes",
+    "search": "Search...",
+    "or": "or",
+    "learnMore": "Learn more",
+    "comingSoon": "Coming soon",
+    "documentation": "Documentation",
+    "feedback": "Feedback",
+    "logOut": "Log out",
+    "connect": "Connect",
+    "configure": "Configure",
+    "remove": "Remove",
+    "name": "Name",
+    "type": "Type",
+    "plan": "Plan",
+    "status": "Status",
+    "loading": "Loading..."
+  },
+
+  "auth": {
+    "signIn": {
+      "title": "Welcome back",
+      "subtitle": "Sign in to your account",
+      "continueWithGmail": "Continue with Gmail",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "••••••••",
+      "forgotPassword": "Forgot password?",
+      "submit": "Sign in",
+      "submitting": "Signing in...",
+      "noAccount": "Don't have an account?",
+      "signUpLink": "Sign up"
+    },
+    "signUp": {
+      "title": "Get started",
+      "subtitle": "Create a new account",
+      "continueWithGmail": "Continue with Gmail",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "••••••••",
+      "submit": "Sign up",
+      "submitting": "Creating account...",
+      "hasAccount": "Have an account?",
+      "signInLink": "Sign in"
+    },
+    "forgotPassword": {
+      "title": "Forgot your password?",
+      "subtitle": "Enter your email and we'll send you a code to reset the password",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "submit": "Send reset code",
+      "submitting": "Sending...",
+      "hasAccount": "Already have an account?",
+      "signInLink": "Sign In",
+      "successTitle": "Check your inbox",
+      "successMessage": "We've sent a password reset code to",
+      "backToSignIn": "Back to Sign In"
+    },
+    "terms": "By continuing, you agree to our",
+    "termsOfService": "Terms of Service",
+    "and": "and",
+    "privacyPolicy": "Privacy Policy",
+    "termsEmails": ", and to receive periodic emails with updates."
+  },
+
+  "organizations": {
+    "title": "Your Organizations",
+    "searchPlaceholder": "Search for an organization",
+    "newOrganization": "New organization",
+    "loading": "Loading organizations...",
+    "noResults": "No organizations found",
+    "freePlan": "Free Plan"
+  },
+
+  "newOrg": {
+    "pageTitle": "New organization",
+    "title": "Create a new organization",
+    "description": "Organizations are a way to group your branches together. Each organization can be configured with different team members and billing settings.",
+    "nameLabel": "Name",
+    "namePlaceholder": "Organization name",
+    "nameHint": "What's the name of your company or team? You can change this later.",
+    "typeLabel": "Type",
+    "typeHint": "What best describes your organization?",
+    "typeOptions": {
+      "personal": "Personal",
+      "company": "Company",
+      "agency": "Agency",
+      "nonProfit": "Non-profit"
+    },
+    "planLabel": "Plan",
+    "planHint": "Which plan fits your organization's needs best?",
+    "planOptions": {
+      "free": "Free - $0/month",
+      "pro": "Pro - $25/month",
+      "team": "Team - $599/month",
+      "enterprise": "Enterprise - Custom"
+    },
+    "submit": "Create organization",
+    "submitting": "Creating...",
+    "error": "Failed to create organization"
+  },
+
+  "branches": {
+    "title": "Branches",
+    "searchPlaceholder": "Search for a branch",
+    "status": "Status",
+    "sortedByName": "Sorted by name",
+    "newBranch": "New branch",
+    "noResults": "No branches found",
+    "branchPaused": "Branch is paused",
+    "branchRunning": "Branch is running",
+    "tableHeaders": {
+      "name": "NAME",
+      "region": "REGION",
+      "status": "STATUS"
+    }
+  },
+
+  "team": {
+    "title": "Team",
+    "filterPlaceholder": "Filter members",
+    "docs": "Docs",
+    "inviteMembers": "Invite members",
+    "leaveTeam": "Leave team",
+    "tableHeaders": {
+      "member": "MEMBER",
+      "twoFA": "2FA",
+      "role": "ROLE"
+    },
+    "mfaEnabled": "Enabled",
+    "mfaDisabled": "Disabled",
+    "memberCount": "{{count}} member",
+    "memberCount_other": "{{count}} members",
+    "invite": {
+      "title": "Invite team members",
+      "ssoTitle": "Single Sign-On (SSO) available",
+      "ssoDescription": "Enforce login via your company identity provider for added security and access control. Available on Team plan and above.",
+      "upgradeToTeam": "Upgrade to Team",
+      "roleLabel": "Role",
+      "roleOptions": {
+        "owner": "Owner",
+        "admin": "Admin",
+        "member": "Member",
+        "developer": "Developer",
+        "readOnly": "Read Only"
+      },
+      "emailLabel": "Email addresses",
+      "emailPlaceholder": "name@example.com, name2@example.com, ...",
+      "submit": "Send invitation"
+    }
+  },
+
+  "integrations": {
+    "title": "Integrations",
+    "subtitle": "Connect external tools and services to enhance your workflow.",
+    "browseCatalogue": "Browse catalogue",
+    "connected": "CONNECTED",
+    "available": "AVAILABLE",
+    "connectedBadge": "Connected",
+    "items": {
+      "slack": { "name": "Slack", "description": "Receive real-time alerts and notifications directly in your Slack channels.", "category": "Communication" },
+      "github": { "name": "GitHub", "description": "Link repositories to branches and automate deployment workflows.", "category": "Development" },
+      "zapier": { "name": "Zapier", "description": "Connect with thousands of apps and automate repetitive tasks.", "category": "Automation" },
+      "jira": { "name": "Jira", "description": "Sync issues and track supplier-related tasks across your team.", "category": "Project Management" },
+      "hubspot": { "name": "HubSpot", "description": "Bring supplier contacts and deal data into your CRM pipeline.", "category": "CRM" },
+      "datadog": { "name": "Datadog", "description": "Monitor performance metrics and activity logs across all branches.", "category": "Monitoring" }
+    }
+  },
+
+  "usage": {
+    "title": "Usage",
+    "subtitle": "Monitor your organization's resource consumption this billing cycle.",
+    "used": "{{pct}}% used",
+    "stats": {
+      "apiRequests": "API Requests",
+      "storage": "Storage",
+      "teamMembers": "Team Members",
+      "branches": "Branches"
+    },
+    "charts": {
+      "apiRequests": "API Requests",
+      "storage": "Storage",
+      "last12Days": "Last 12 days"
+    }
+  },
+
+  "billing": {
+    "title": "Billing",
+    "subtitle": "Manage your subscription plan and payment details.",
+    "currentPlanBanner": "You're on the {{plan}} plan",
+    "nextBillingDate": "Next billing date: {{date}}",
+    "upgradePlan": "Upgrade plan",
+    "plans": "PLANS",
+    "currentBadge": "Current",
+    "currentPlanButton": "Current plan",
+    "upgradeTo": "Upgrade to {{name}}",
+    "paymentMethod": "PAYMENT METHOD",
+    "noPaymentMethod": "No payment method on file",
+    "addCard": "Add card",
+    "invoiceHistory": "INVOICE HISTORY",
+    "invoiceHeaders": {
+      "invoice": "INVOICE",
+      "date": "DATE",
+      "amount": "AMOUNT",
+      "status": "STATUS"
+    },
+    "planDetails": {
+      "free": {
+        "name": "Free",
+        "price": "$0",
+        "period": "/month",
+        "description": "For small teams getting started.",
+        "features": [
+          "Up to 5 team members",
+          "10 branches",
+          "500K API requests / month",
+          "8 GB storage",
+          "Community support"
+        ]
+      },
+      "team": {
+        "name": "Team",
+        "price": "$25",
+        "period": "/month per member",
+        "description": "For growing teams with advanced needs.",
+        "features": [
+          "Unlimited team members",
+          "Unlimited branches",
+          "5M API requests / month",
+          "100 GB storage",
+          "Priority support",
+          "SSO & advanced security",
+          "Custom integrations"
+        ]
+      }
+    }
+  },
+
+  "settings": {
+    "title": "Organization Settings",
+    "general": "GENERAL",
+    "orgName": "Organization name",
+    "orgNameDescription": "This is your organization's display name across the platform.",
+    "orgSlug": "Organization slug",
+    "orgSlugDescription": "Used in URLs and API references. Changing this will update all existing links.",
+    "dangerZone": "DANGER ZONE",
+    "deleteOrg": "Delete this organization",
+    "deleteOrgDescription": "Permanently delete this organization and all associated branches, members, and data. This action cannot be undone.",
+    "deleteConfirmLabel": "Type {{word}} to confirm",
+    "deleteConfirmPlaceholder": "delete",
+    "deleteButton": "Delete organization"
+  },
+
+  "branchOverview": {
+    "active": "Active",
+    "pauseBranch": "Pause branch",
+    "pausedTitle": "The branch \"{{name}}\" is currently paused",
+    "pausedDescription": "All data, including records, documents, and workflow history, remains safe. You can resume this branch from the dashboard within {{days}} days (until {{deadline}}). After that, this branch will not be resumable, but data will still be available for download.",
+    "preventPauses": "To prevent future pauses, consider upgrading to Pro.",
+    "lastPaused": "Branch last paused on {{date}}",
+    "resumeBranch": "Resume branch",
+    "resuming": "Resuming…",
+    "upgradeToPro": "Upgrade to Pro",
+    "stats": {
+      "suppliers": "Suppliers",
+      "documents": "Documents",
+      "activeWorkflows": "Active Workflows",
+      "apiRequests": "API Requests"
+    },
+    "changes": {
+      "thisWeek": "+{{count}} this week",
+      "pending": "{{count}} pending",
+      "last24h": "Last 24 hours"
+    },
+    "recentActivity": "RECENT ACTIVITY",
+    "viewAll": "View all",
+    "branchHealth": "BRANCH HEALTH",
+    "health": {
+      "apiResponse": "API Response",
+      "dataSync": "Data Sync",
+      "integrations": "Integrations",
+      "complianceScore": "Compliance Score",
+      "healthy": "Healthy",
+      "integrationsOnline": "{{current}} / {{total}} online"
+    }
+  },
+
+  "branchPlaceholder": {
+    "pages": {
+      "suppliers": { "label": "Supplier Data", "description": "View and manage your supplier records, profiles, and performance metrics." },
+      "query": { "label": "Query Builder", "description": "Build custom queries to filter and explore your supplier database." },
+      "contacts": { "label": "Contacts", "description": "Manage contacts associated with your suppliers and partners." },
+      "access": { "label": "Access Control", "description": "Configure roles and permissions for team members within this branch." },
+      "documents": { "label": "Documents", "description": "Store and manage contracts, certificates, and compliance documents." },
+      "automations": { "label": "Automations", "description": "Set up automated workflows to streamline supplier onboarding and reviews." },
+      "activity": { "label": "Activity Feed", "description": "Track all actions and changes made within this branch." },
+      "insights": { "label": "Insights", "description": "AI-powered recommendations and supplier risk signals." },
+      "analytics": { "label": "Analytics", "description": "Visualise supplier performance trends and KPIs over time." },
+      "logs": { "label": "Logs", "description": "Detailed audit logs for all system and user events in this branch." },
+      "integrations": { "label": "Integrations", "description": "Connect external tools and data sources to this branch." },
+      "settings": { "label": "Branch Settings", "description": "Configure branch-level preferences, environments, and danger zone actions." }
+    },
+    "underConstruction": "This page is under construction."
+  },
+
+  "nav": {
+    "organizations": "Organizations",
+    "findOrganization": "Find organization...",
+    "allOrganizations": "All Organizations",
+    "findBranch": "Find branch...",
+    "sidebar": {
+      "branches": "Branches",
+      "team": "Team",
+      "integrations": "Integrations",
+      "usage": "Usage",
+      "billing": "Billing",
+      "orgSettings": "Organization Settings",
+      "branchOverview": "Branch Overview",
+      "supplierData": "Supplier Data",
+      "queryBuilder": "Query Builder",
+      "contacts": "Contacts",
+      "accessControl": "Access Control",
+      "documents": "Documents",
+      "automations": "Automations",
+      "activityFeed": "Activity Feed",
+      "insights": "Insights",
+      "analytics": "Analytics",
+      "logs": "Logs",
+      "branchSettings": "Branch Settings"
+    },
+    "userMenu": {
+      "accountPreferences": "Account preferences",
+      "featurePreviews": "Feature previews",
+      "changelog": "Changelog",
+      "theme": "Theme",
+      "themes": {
+        "dark": "Dark",
+        "light": "Light",
+        "classicDark": "Classic Dark",
+        "system": "System"
+      }
+    }
+  }
+}

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { useTranslation } from "react-i18next";
 import { TopNav } from "../components/TopNav";
 import { OrganizationCard } from "../components/OrganizationCard";
 import { Search, Plus } from "lucide-react";
@@ -11,6 +12,7 @@ export function Organizations() {
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
   const { data: orgs = [], isLoading } = useOrganizations();
+  const { t } = useTranslation();
 
   const filtered = orgs.filter((org) =>
     org.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -18,17 +20,17 @@ export function Organizations() {
 
   return (
     <div className="flex flex-col">
-      <TopNav variant="plain" title="Organizations" />
+      <TopNav variant="plain" title={t("nav.organizations")} />
 
       <div className="px-8 py-12 max-w-5xl mx-auto w-full">
-        <h1 className="text-[26px] font-semibold mb-8">Your Organizations</h1>
+        <h1 className="text-[26px] font-semibold mb-8">{t("organizations.title")}</h1>
 
         {/* Toolbar */}
         <div className="flex items-center justify-between mb-6">
           <div className="relative w-[280px]">
             <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-subtle" />
             <Input
-              placeholder="Search for an organization"
+              placeholder={t("organizations.searchPlaceholder")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-9"
@@ -37,7 +39,7 @@ export function Organizations() {
 
           <Button onClick={() => navigate("/dashboard/new")}>
             <Plus size={15} />
-            New organization
+            {t("organizations.newOrganization")}
           </Button>
         </div>
 
@@ -50,13 +52,13 @@ export function Organizations() {
 
         {isLoading && (
           <div className="text-center py-16 text-subtle">
-            <p className="text-sm">Loading organizations...</p>
+            <p className="text-sm">{t("organizations.loading")}</p>
           </div>
         )}
 
         {!isLoading && filtered.length === 0 && (
           <div className="text-center py-16 text-subtle">
-            <p className="text-sm">No organizations found</p>
+            <p className="text-sm">{t("organizations.noResults")}</p>
           </div>
         )}
       </div>

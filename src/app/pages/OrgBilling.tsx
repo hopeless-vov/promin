@@ -1,4 +1,5 @@
 import { CreditCard, Check, Zap } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Button } from "../components/ui/button";
 import { Badge } from "../components/ui/badge";
 import { Card } from "../components/ui/card";
@@ -45,11 +46,13 @@ const invoices = [
 ];
 
 export function OrgBilling() {
+  const { t } = useTranslation();
+
   return (
     <div className="p-8">
       <div className="mb-6">
-        <h1 className="text-[22px] font-semibold mb-1">Billing</h1>
-        <p className="text-sm text-muted-foreground">Manage your subscription plan and payment details.</p>
+        <h1 className="text-[22px] font-semibold mb-1">{t("billing.title")}</h1>
+        <p className="text-sm text-muted-foreground">{t("billing.subtitle")}</p>
       </div>
 
       {/* Current plan banner */}
@@ -60,16 +63,16 @@ export function OrgBilling() {
           </div>
           <div>
             <p className="text-sm font-medium">
-              You're on the <span className="text-brand">Free</span> plan
+              {t("billing.currentPlanBanner", { plan: "Free" })}
             </p>
-            <p className="text-xs text-muted-foreground">Next billing date: N/A</p>
+            <p className="text-xs text-muted-foreground">{t("billing.nextBillingDate", { date: "N/A" })}</p>
           </div>
         </div>
-        <Button>Upgrade plan</Button>
+        <Button>{t("billing.upgradePlan")}</Button>
       </Card>
 
       {/* Plans */}
-      <h2 className="text-xs mb-3 text-subtle font-medium tracking-[0.07em]">PLANS</h2>
+      <h2 className="text-xs mb-3 text-subtle font-medium tracking-[0.07em]">{t("billing.plans")}</h2>
       <div className="grid gap-4 mb-10" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))" }}>
         {plans.map((plan) => (
           <Card
@@ -80,7 +83,7 @@ export function OrgBilling() {
               <div className="flex items-center justify-between mb-1">
                 <p className="text-sm font-semibold">{plan.name}</p>
                 {plan.current && (
-                  <Badge>Current</Badge>
+                  <Badge>{t("billing.currentBadge")}</Badge>
                 )}
               </div>
               <p className="text-xs mb-3 text-muted-foreground">{plan.description}</p>
@@ -102,11 +105,11 @@ export function OrgBilling() {
             <div className="mt-auto">
               {plan.current ? (
                 <Button variant="outline" disabled className="w-full">
-                  Current plan
+                  {t("billing.currentPlanButton")}
                 </Button>
               ) : (
                 <Button variant="solid" className="w-full">
-                  Upgrade to {plan.name}
+                  {t("billing.upgradeTo", { name: plan.name })}
                 </Button>
               )}
             </div>
@@ -115,25 +118,25 @@ export function OrgBilling() {
       </div>
 
       {/* Payment method */}
-      <h2 className="text-xs mb-3 text-subtle font-medium tracking-[0.07em]">PAYMENT METHOD</h2>
+      <h2 className="text-xs mb-3 text-subtle font-medium tracking-[0.07em]">{t("billing.paymentMethod")}</h2>
       <Card className="flex-row items-center justify-between p-4 mb-8">
         <div className="flex items-center gap-3 text-muted-foreground">
           <CreditCard size={16} />
-          <span className="text-sm">No payment method on file</span>
+          <span className="text-sm">{t("billing.noPaymentMethod")}</span>
         </div>
         <Button variant="outline" size="sm">
-          Add card
+          {t("billing.addCard")}
         </Button>
       </Card>
 
       {/* Invoice history */}
-      <h2 className="text-xs mb-3 text-subtle font-medium tracking-[0.07em]">INVOICE HISTORY</h2>
+      <h2 className="text-xs mb-3 text-subtle font-medium tracking-[0.07em]">{t("billing.invoiceHistory")}</h2>
       <Card className="overflow-hidden">
         <div
           className="grid px-4 py-3 bg-surface-dark border-b border-border"
           style={{ gridTemplateColumns: "1fr 160px 120px 100px" }}
         >
-          {["INVOICE", "DATE", "AMOUNT", "STATUS"].map((h) => (
+          {[t("billing.invoiceHeaders.invoice"), t("billing.invoiceHeaders.date"), t("billing.invoiceHeaders.amount"), t("billing.invoiceHeaders.status")].map((h) => (
             <span key={h} className="text-xs text-subtle font-medium tracking-[0.06em]">{h}</span>
           ))}
         </div>

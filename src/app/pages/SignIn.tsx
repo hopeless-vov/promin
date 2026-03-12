@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { Eye, EyeOff, Lock } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "../AuthContext";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
@@ -14,6 +15,7 @@ export function SignIn() {
   const [loading, setLoading] = useState(false);
   const { signIn, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -35,8 +37,8 @@ export function SignIn() {
 
   return (
     <form onSubmit={handleSubmit} className="w-full max-w-sm">
-      <h1 className="text-[28px] font-semibold leading-tight mb-1">Welcome back</h1>
-      <p className="mb-8 text-muted-foreground text-sm">Sign in to your account</p>
+      <h1 className="text-[28px] font-semibold leading-tight mb-1">{t("auth.signIn.title")}</h1>
+      <p className="mb-8 text-muted-foreground text-sm">{t("auth.signIn.subtitle")}</p>
 
       {error && (
         <div className="mb-4 px-3 py-2 rounded-lg text-sm bg-destructive/10 border border-destructive/30 text-red-400">
@@ -57,22 +59,22 @@ export function SignIn() {
           <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18A10.96 10.96 0 0 0 1 12c0 1.77.42 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
           <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
         </svg>
-        Continue with Gmail
+        {t("auth.signIn.continueWithGmail")}
       </Button>
 
       {/* Divider */}
       <div className="flex items-center gap-3 mb-4">
         <Separator className="flex-1" />
-        <span className="text-sm text-subtle">or</span>
+        <span className="text-sm text-subtle">{t("common.or")}</span>
         <Separator className="flex-1" />
       </div>
 
       {/* Email */}
       <div className="mb-4">
-        <label className="block mb-1.5 text-sm text-secondary-foreground">Email</label>
+        <label className="block mb-1.5 text-sm text-secondary-foreground">{t("auth.signIn.emailLabel")}</label>
         <Input
           type="email"
-          placeholder="you@example.com"
+          placeholder={t("auth.signIn.emailPlaceholder")}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -81,18 +83,18 @@ export function SignIn() {
       {/* Password */}
       <div className="mb-6">
         <div className="flex items-center justify-between mb-1.5">
-          <label className="text-sm text-secondary-foreground">Password</label>
+          <label className="text-sm text-secondary-foreground">{t("auth.signIn.passwordLabel")}</label>
           <Link
             to="/dashboard/forgot-password"
             className="text-sm text-muted-foreground hover:opacity-80 transition-opacity"
           >
-            Forgot password?
+            {t("auth.signIn.forgotPassword")}
           </Link>
         </div>
         <div className="relative">
           <Input
             type={showPassword ? "text" : "password"}
-            placeholder="••••••••"
+            placeholder={t("auth.signIn.passwordPlaceholder")}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="pr-10"
@@ -109,24 +111,24 @@ export function SignIn() {
 
       {/* Submit */}
       <Button type="submit" disabled={loading} className="w-full py-2.5">
-        {loading ? "Signing in..." : "Sign in"}
+        {loading ? t("auth.signIn.submitting") : t("auth.signIn.submit")}
       </Button>
 
       {/* Sign up link */}
       <p className="text-center mt-4 text-sm text-muted-foreground">
-        Don't have an account?{" "}
+        {t("auth.signIn.noAccount")}{" "}
         <Link to="/dashboard/sign-up" className="underline text-secondary-foreground hover:opacity-80 transition-opacity">
-          Sign up
+          {t("auth.signIn.signUpLink")}
         </Link>
       </p>
 
       {/* Terms */}
       <p className="text-center mt-8 text-xs leading-relaxed text-subtle">
-        By continuing, you agree to our{" "}
-        <a href="#" className="underline hover:opacity-80">Terms of Service</a>
-        {" "}and{" "}
-        <a href="#" className="underline hover:opacity-80">Privacy Policy</a>
-        , and to receive periodic emails with updates.
+        {t("auth.terms")}{" "}
+        <a href="#" className="underline hover:opacity-80">{t("auth.termsOfService")}</a>
+        {" "}{t("auth.and")}{" "}
+        <a href="#" className="underline hover:opacity-80">{t("auth.privacyPolicy")}</a>
+        {t("auth.termsEmails")}
       </p>
     </form>
   );

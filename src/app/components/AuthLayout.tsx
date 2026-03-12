@@ -1,4 +1,5 @@
 import { Outlet, useLocation } from "react-router";
+import { useTranslation } from "react-i18next";
 import { Logo } from "./Logo";
 import { BookOpen } from "lucide-react";
 import { Link } from "react-router";
@@ -21,6 +22,7 @@ const testimonials = [
 ];
 
 export function AuthLayout() {
+  const { t } = useTranslation();
   const location = useLocation();
   const isForgotPassword = location.pathname === "/dashboard/forgot-password";
 
@@ -45,7 +47,7 @@ export function AuthLayout() {
         <Logo />
         <button className="flex items-center gap-2 px-3 py-1.5 rounded text-sm border border-app-border text-neutral-400">
           <BookOpen size={14} />
-          Documentation
+          {t("common.documentation")}
         </button>
       </div>
 

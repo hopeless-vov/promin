@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "../AuthContext";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
@@ -10,6 +11,7 @@ export function ForgotPassword() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const { resetPassword } = useAuth();
+  const { t } = useTranslation();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -35,25 +37,25 @@ export function ForgotPassword() {
                 <polyline points="20,6 9,17 4,12" />
               </svg>
             </div>
-            <h1 className="text-2xl font-semibold mb-2">Check your inbox</h1>
+            <h1 className="text-2xl font-semibold mb-2">{t("auth.forgotPassword.successTitle")}</h1>
             <p className="mb-6 text-sm text-muted-foreground">
-              We've sent a password reset code to{" "}
+              {t("auth.forgotPassword.successMessage")}{" "}
               <span className="text-secondary-foreground">{email}</span>
             </p>
             <Link
               to="/dashboard/sign-in"
               className="underline hover:opacity-80 transition-opacity text-sm text-secondary-foreground"
             >
-              Back to Sign In
+              {t("auth.forgotPassword.backToSignIn")}
             </Link>
           </div>
         ) : (
           <form onSubmit={handleSubmit}>
             <h1 className="text-[28px] font-semibold leading-tight mb-2">
-              Forgot your password?
+              {t("auth.forgotPassword.title")}
             </h1>
             <p className="mb-8 text-sm leading-relaxed text-muted-foreground">
-              Enter your email and we'll send you a code to reset the password
+              {t("auth.forgotPassword.subtitle")}
             </p>
 
             {error && (
@@ -63,10 +65,10 @@ export function ForgotPassword() {
             )}
 
             <div className="mb-4">
-              <label className="block mb-1.5 text-sm text-secondary-foreground">Email</label>
+              <label className="block mb-1.5 text-sm text-secondary-foreground">{t("auth.forgotPassword.emailLabel")}</label>
               <Input
                 type="email"
-                placeholder="you@example.com"
+                placeholder={t("auth.forgotPassword.emailPlaceholder")}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -75,16 +77,16 @@ export function ForgotPassword() {
             <div className="mb-4 h-4" />
 
             <Button type="submit" disabled={loading} className="w-full py-2.5">
-              {loading ? "Sending..." : "Send reset code"}
+              {loading ? t("auth.forgotPassword.submitting") : t("auth.forgotPassword.submit")}
             </Button>
 
             <p className="text-center mt-4 text-sm text-muted-foreground">
-              Already have an account?{" "}
+              {t("auth.forgotPassword.hasAccount")}{" "}
               <Link
                 to="/dashboard/sign-in"
                 className="underline text-secondary-foreground hover:opacity-80 transition-opacity"
               >
-                Sign In
+                {t("auth.forgotPassword.signInLink")}
               </Link>
             </p>
           </form>

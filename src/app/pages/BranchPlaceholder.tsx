@@ -1,4 +1,5 @@
 import { useLocation } from "react-router";
+import { useTranslation } from "react-i18next";
 import {
   Table2,
   Search,
@@ -82,23 +83,27 @@ const pageMap: Record<
 
 export function BranchPlaceholder() {
   const location = useLocation();
+  const { t } = useTranslation();
   const segment = location.pathname.split("/").pop() || "";
+  const pageKey = segment as keyof typeof pageMap;
   const page = pageMap[segment] || {
     icon: Settings,
     label: segment.charAt(0).toUpperCase() + segment.slice(1),
-    description: "This page is under construction.",
+    description: t("branchPlaceholder.underConstruction"),
   };
   const Icon = page.icon;
+  const translatedLabel = pageMap[segment] ? t(`branchPlaceholder.pages.${pageKey}.label`) : page.label;
+  const translatedDescription = pageMap[segment] ? t(`branchPlaceholder.pages.${pageKey}.description`) : page.description;
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-48px)] p-16 text-center">
       <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 bg-card border border-border">
         <Icon size={20} className="text-brand" />
       </div>
-      <h2 className="text-lg font-semibold mb-2">{page.label}</h2>
-      <p className="text-sm max-w-xs leading-relaxed text-muted-foreground">{page.description}</p>
+      <h2 className="text-lg font-semibold mb-2">{translatedLabel}</h2>
+      <p className="text-sm max-w-xs leading-relaxed text-muted-foreground">{translatedDescription}</p>
       <span className="mt-6 text-xs px-3 py-1.5 rounded-full bg-card border border-border text-subtle">
-        Coming soon
+        {t("common.comingSoon")}
       </span>
     </div>
   );

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Search, BookOpen, UserPlus, X, ChevronDown } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Card } from "../components/ui/card";
@@ -23,6 +24,7 @@ const mockMembers: Member[] = [
 function InviteModal({ onClose }: { onClose: () => void }) {
   const [role, setRole] = useState("Member");
   const [emails, setEmails] = useState("");
+  const { t } = useTranslation();
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -30,7 +32,7 @@ function InviteModal({ onClose }: { onClose: () => void }) {
       <Card className="relative w-full max-w-lg z-10">
         {/* Modal header */}
         <div className="flex items-center justify-between px-6 py-4">
-          <h2 className="text-base font-semibold">Invite team members</h2>
+          <h2 className="text-base font-semibold">{t("team.invite.title")}</h2>
           <button
             onClick={onClose}
             className="p-1 rounded hover:bg-white/10 transition-colors text-muted-foreground"
@@ -43,35 +45,34 @@ function InviteModal({ onClose }: { onClose: () => void }) {
 
         {/* SSO info box */}
         <div className="mx-6 mt-5 p-4 rounded-lg bg-muted border border-border">
-          <p className="text-sm mb-1 font-medium">Single Sign-On (SSO) available</p>
+          <p className="text-sm mb-1 font-medium">{t("team.invite.ssoTitle")}</p>
           <p className="text-xs leading-relaxed mb-3 text-muted-foreground">
-            Enforce login via your company identity provider for added security and access control.
-            Available on Team plan and above.
+            {t("team.invite.ssoDescription")}
           </p>
           <div className="flex gap-2">
             <Button variant="outline" size="sm">
-              Learn more
+              {t("common.learnMore")}
             </Button>
             <Button size="sm">
-              Upgrade to Team
+              {t("team.invite.upgradeToTeam")}
             </Button>
           </div>
         </div>
 
         {/* Role */}
         <div className="px-6 pt-5">
-          <label className="block text-sm mb-1.5 text-secondary-foreground">Role</label>
+          <label className="block text-sm mb-1.5 text-secondary-foreground">{t("team.invite.roleLabel")}</label>
           <div className="relative">
             <select
               value={role}
               onChange={(e) => setRole(e.target.value)}
               className="w-full rounded-lg text-sm outline-none appearance-none cursor-pointer px-3 py-2 bg-card border border-border text-secondary-foreground"
             >
-              <option>Owner</option>
-              <option>Admin</option>
-              <option>Member</option>
-              <option>Developer</option>
-              <option>Read Only</option>
+              <option>{t("team.invite.roleOptions.owner")}</option>
+              <option>{t("team.invite.roleOptions.admin")}</option>
+              <option>{t("team.invite.roleOptions.member")}</option>
+              <option>{t("team.invite.roleOptions.developer")}</option>
+              <option>{t("team.invite.roleOptions.readOnly")}</option>
             </select>
             <ChevronDown size={13} className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-subtle" />
           </div>
@@ -79,9 +80,9 @@ function InviteModal({ onClose }: { onClose: () => void }) {
 
         {/* Email addresses */}
         <div className="px-6 pt-4 pb-6">
-          <label className="block text-sm mb-1.5 text-secondary-foreground">Email addresses</label>
+          <label className="block text-sm mb-1.5 text-secondary-foreground">{t("team.invite.emailLabel")}</label>
           <textarea
-            placeholder="name@example.com, name2@example.com, ..."
+            placeholder={t("team.invite.emailPlaceholder")}
             value={emails}
             onChange={(e) => setEmails(e.target.value)}
             rows={3}
@@ -93,10 +94,10 @@ function InviteModal({ onClose }: { onClose: () => void }) {
         <Separator />
         <div className="px-6 py-4 flex items-center justify-between">
           <Button variant="outline" onClick={onClose}>
-            Cancel
+            {t("common.cancel")}
           </Button>
           <Button onClick={onClose}>
-            Send invitation
+            {t("team.invite.submit")}
           </Button>
         </div>
       </Card>
@@ -108,6 +109,7 @@ export function OrgTeam() {
   const [search, setSearch] = useState("");
   const [showInviteModal, setShowInviteModal] = useState(false);
   const [members] = useState<Member[]>(mockMembers);
+  const { t } = useTranslation();
 
   const filtered = members.filter((m) =>
     m.email.toLowerCase().includes(search.toLowerCase())
@@ -116,14 +118,14 @@ export function OrgTeam() {
   return (
     <>
       <div className="p-8">
-        <h1 className="text-[22px] font-semibold mb-6">Team</h1>
+        <h1 className="text-[22px] font-semibold mb-6">{t("team.title")}</h1>
 
         {/* Toolbar */}
         <div className="flex items-center gap-2 mb-4">
           <div className="relative w-[220px]">
             <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-subtle" />
             <Input
-              placeholder="Filter members"
+              placeholder={t("team.filterPlaceholder")}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="pl-9"
@@ -134,11 +136,11 @@ export function OrgTeam() {
 
           <Button variant="outline">
             <BookOpen size={14} />
-            Docs
+            {t("team.docs")}
           </Button>
           <Button onClick={() => setShowInviteModal(true)}>
             <UserPlus size={14} />
-            Invite members
+            {t("team.inviteMembers")}
           </Button>
         </div>
 
@@ -149,9 +151,9 @@ export function OrgTeam() {
             className="grid px-4 py-3 bg-surface-dark border-b border-border"
             style={{ gridTemplateColumns: "1fr 180px 180px 120px" }}
           >
-            <span className="text-xs text-subtle font-medium tracking-[0.06em]">MEMBER</span>
-            <span className="text-xs text-subtle font-medium tracking-[0.06em]">2FA</span>
-            <span className="text-xs text-subtle font-medium tracking-[0.06em]">ROLE</span>
+            <span className="text-xs text-subtle font-medium tracking-[0.06em]">{t("team.tableHeaders.member")}</span>
+            <span className="text-xs text-subtle font-medium tracking-[0.06em]">{t("team.tableHeaders.twoFA")}</span>
+            <span className="text-xs text-subtle font-medium tracking-[0.06em]">{t("team.tableHeaders.role")}</span>
             <span />
           </div>
 
@@ -181,7 +183,7 @@ export function OrgTeam() {
               {/* MFA */}
               <div className="flex items-center gap-2">
                 <span className={`text-sm ${member.mfaEnabled ? "text-brand" : "text-muted-foreground"}`}>
-                  {member.mfaEnabled ? "Enabled" : "Disabled"}
+                  {member.mfaEnabled ? t("team.mfaEnabled") : t("team.mfaDisabled")}
                 </span>
                 {!member.mfaEnabled && <X size={13} className="text-subtle" />}
               </div>
@@ -195,11 +197,11 @@ export function OrgTeam() {
               <div className="flex justify-end">
                 {member.isYou ? (
                   <Button variant="outline" size="sm">
-                    Leave team
+                    {t("team.leaveTeam")}
                   </Button>
                 ) : (
                   <Button variant="outline" size="sm" className="hover:bg-red-500/10 hover:border-red-500/30">
-                    Remove
+                    {t("common.remove")}
                   </Button>
                 )}
               </div>
@@ -208,7 +210,7 @@ export function OrgTeam() {
 
           {/* Count row */}
           <div className="px-4 py-3 text-xs bg-surface-dark text-subtle border-t border-border">
-            {filtered.length} member{filtered.length !== 1 ? "s" : ""}
+            {t("team.memberCount", { count: filtered.length })}
           </div>
         </Card>
       </div>

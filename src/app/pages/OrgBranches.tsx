@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router";
+import { useTranslation } from "react-i18next";
 import {
   Search,
   Plus,
@@ -35,6 +36,7 @@ function StatusBadge({ status }: { status: string }) {
 export function OrgBranches() {
   const navigate = useNavigate();
   const { orgId } = useParams();
+  const { t } = useTranslation();
   const currentOrgId = orgId || "vcuwjtqppzztgjwtvmta";
   const [view, setView] = useState<"grid" | "list">("grid");
   const [search, setSearch] = useState("");
@@ -46,14 +48,14 @@ export function OrgBranches() {
 
   return (
     <div className="p-8">
-      <h1 className="text-[22px] font-semibold mb-6">Branches</h1>
+      <h1 className="text-[22px] font-semibold mb-6">{t("branches.title")}</h1>
 
       {/* Toolbar */}
       <div className="flex items-center gap-2 mb-6 flex-wrap">
         <div className="relative w-[240px]">
           <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-subtle" />
           <Input
-            placeholder="Search for a branch"
+            placeholder={t("branches.searchPlaceholder")}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="pl-9"
@@ -61,13 +63,13 @@ export function OrgBranches() {
         </div>
 
         <Button variant="secondary" size="sm">
-          Status
+          {t("branches.status")}
           <ChevronDown size={13} className="text-subtle" />
         </Button>
 
         <Button variant="secondary" size="sm">
           <ArrowUpDown size={13} />
-          Sorted by name
+          {t("branches.sortedByName")}
         </Button>
 
         <div className="flex-1" />
@@ -94,7 +96,7 @@ export function OrgBranches() {
 
         <Button>
           <Plus size={15} />
-          New branch
+          {t("branches.newBranch")}
         </Button>
       </div>
 
@@ -130,7 +132,7 @@ export function OrgBranches() {
               <div className="flex items-center gap-2 mt-4 text-subtle">
                 <PauseCircle size={15} />
                 <span className="text-xs">
-                  {branch.status === "PAUSED" ? "Branch is paused" : "Branch is running"}
+                  {branch.status === "PAUSED" ? t("branches.branchPaused") : t("branches.branchRunning")}
                 </span>
                 <Info size={12} />
               </div>
@@ -142,9 +144,9 @@ export function OrgBranches() {
           <table className="w-full text-sm">
             <thead>
               <tr className="bg-surface-dark border-b border-border">
-                <th className="text-left px-4 py-3 text-xs text-subtle font-medium tracking-[0.05em]">NAME</th>
-                <th className="text-left px-4 py-3 text-xs text-subtle font-medium tracking-[0.05em]">REGION</th>
-                <th className="text-left px-4 py-3 text-xs text-subtle font-medium tracking-[0.05em]">STATUS</th>
+                <th className="text-left px-4 py-3 text-xs text-subtle font-medium tracking-[0.05em]">{t("branches.tableHeaders.name")}</th>
+                <th className="text-left px-4 py-3 text-xs text-subtle font-medium tracking-[0.05em]">{t("branches.tableHeaders.region")}</th>
+                <th className="text-left px-4 py-3 text-xs text-subtle font-medium tracking-[0.05em]">{t("branches.tableHeaders.status")}</th>
                 <th className="px-4 py-3" />
               </tr>
             </thead>
@@ -179,7 +181,7 @@ export function OrgBranches() {
 
       {filtered.length === 0 && (
         <div className="text-center py-16 text-subtle">
-          <p className="text-sm">No branches found</p>
+          <p className="text-sm">{t("branches.noResults")}</p>
         </div>
       )}
     </div>

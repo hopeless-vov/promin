@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 import { Card } from "./ui/card";
 
 export interface Org {
@@ -26,6 +27,7 @@ function OrgIcon() {
 }
 
 export function OrganizationCard({ org }: { org: Org }) {
+  const { t } = useTranslation();
   return (
     <Card className="hover:bg-white/5 transition-colors">
       <Link
@@ -36,7 +38,7 @@ export function OrganizationCard({ org }: { org: Org }) {
         <div>
           <p className="text-sm font-medium">{org.name}</p>
           <p className="text-xs mt-0.5 flex items-center gap-1.5 text-muted-foreground">
-            Free Plan
+            {t("organizations.freePlan")}
             <span className="text-border">•</span>
             {org.type}
           </p>

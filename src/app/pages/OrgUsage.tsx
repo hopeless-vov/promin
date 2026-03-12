@@ -9,6 +9,7 @@ import {
 } from "recharts";
 import { Card } from "../components/ui/card";
 import { Progress } from "../components/ui/progress";
+import { useTranslation } from "react-i18next";
 
 const apiData = [
   { day: "Mar 1", requests: 12400 },
@@ -58,12 +59,14 @@ function CustomTooltip({ active, payload, label }: any) {
 }
 
 export function OrgUsage() {
+  const { t } = useTranslation();
+
   return (
     <div className="p-8">
       <div className="mb-6">
-        <h1 className="text-[22px] font-semibold mb-1">Usage</h1>
+        <h1 className="text-[22px] font-semibold mb-1">{t("usage.title")}</h1>
         <p className="text-sm text-muted-foreground">
-          Monitor your organization's resource consumption this billing cycle.
+          {t("usage.subtitle")}
         </p>
       </div>
 
@@ -77,15 +80,15 @@ export function OrgUsage() {
               <span className="text-xs text-subtle">/ {s.limit}</span>
             </div>
             <Progress value={s.pct} className={s.pct > 80 ? "[&>[data-slot=progress-indicator]]:bg-red-400" : ""} />
-            <p className="text-xs mt-1.5 text-subtle">{s.pct}% used</p>
+            <p className="text-xs mt-1.5 text-subtle">{t("usage.used", { pct: s.pct })}</p>
           </Card>
         ))}
       </div>
 
       {/* Charts */}
       <div className="grid gap-6" style={{ gridTemplateColumns: "1fr 1fr" }}>
-        <ChartCard title="API Requests" subtitle="Last 12 days" data={apiData} dataKey="requests" unit="" />
-        <ChartCard title="Storage" subtitle="Last 12 days" data={storageData} dataKey="gb" unit=" GB" />
+        <ChartCard title={t("usage.charts.apiRequests")} subtitle={t("usage.charts.last12Days")} data={apiData} dataKey="requests" unit="" />
+        <ChartCard title={t("usage.charts.storage")} subtitle={t("usage.charts.last12Days")} data={storageData} dataKey="gb" unit=" GB" />
       </div>
     </div>
   );

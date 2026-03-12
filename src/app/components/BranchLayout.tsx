@@ -1,4 +1,5 @@
 import { Outlet, Link, useParams, useLocation } from "react-router";
+import { useTranslation } from "react-i18next";
 import { TopNav } from "./TopNav";
 import {
   LayoutDashboard,
@@ -28,26 +29,27 @@ const mockBranches = [
   { id: "branch-04", name: "vendor-hub", status: "PAUSED", env: "STAGING" },
 ];
 
-const navItems: ({ icon: React.ElementType; label: string; path: string } | null)[] = [
-  { icon: LayoutDashboard, label: "Branch Overview", path: "" },
-  { icon: Table2, label: "Supplier Data", path: "suppliers" },
-  { icon: Search, label: "Query Builder", path: "query" },
+const navItems: ({ icon: React.ElementType; labelKey: string; path: string } | null)[] = [
+  { icon: LayoutDashboard, labelKey: "nav.sidebar.branchOverview", path: "" },
+  { icon: Table2, labelKey: "nav.sidebar.supplierData", path: "suppliers" },
+  { icon: Search, labelKey: "nav.sidebar.queryBuilder", path: "query" },
   null,
-  { icon: Database, label: "Contacts", path: "contacts" },
-  { icon: ShieldCheck, label: "Access Control", path: "access" },
-  { icon: FolderOpen, label: "Documents", path: "documents" },
-  { icon: Zap, label: "Automations", path: "automations" },
-  { icon: Activity, label: "Activity Feed", path: "activity" },
+  { icon: Database, labelKey: "nav.sidebar.contacts", path: "contacts" },
+  { icon: ShieldCheck, labelKey: "nav.sidebar.accessControl", path: "access" },
+  { icon: FolderOpen, labelKey: "nav.sidebar.documents", path: "documents" },
+  { icon: Zap, labelKey: "nav.sidebar.automations", path: "automations" },
+  { icon: Activity, labelKey: "nav.sidebar.activityFeed", path: "activity" },
   null,
-  { icon: Lightbulb, label: "Insights", path: "insights" },
-  { icon: BarChart2, label: "Analytics", path: "analytics" },
-  { icon: ScrollText, label: "Logs", path: "logs" },
-  { icon: Puzzle, label: "Integrations", path: "integrations" },
+  { icon: Lightbulb, labelKey: "nav.sidebar.insights", path: "insights" },
+  { icon: BarChart2, labelKey: "nav.sidebar.analytics", path: "analytics" },
+  { icon: ScrollText, labelKey: "nav.sidebar.logs", path: "logs" },
+  { icon: Puzzle, labelKey: "integrations.title", path: "integrations" },
   null,
-  { icon: Settings, label: "Branch Settings", path: "settings" },
+  { icon: Settings, labelKey: "nav.sidebar.branchSettings", path: "settings" },
 ];
 
 export function BranchLayout() {
+  const { t } = useTranslation();
   const params = useParams();
   const orgId = params.orgId || "vcuwjtqppzztgjwtvmta";
   const branchId = params.branchId || "branch-01";
@@ -89,14 +91,14 @@ export function BranchLayout() {
               const href = item.path === "" ? basePath : `${basePath}/${item.path}`;
               return (
                 <Link
-                  key={item.label}
+                  key={item.labelKey}
                   to={href}
                   className={`flex items-center gap-2.5 px-2.5 py-2 rounded text-sm transition-colors ${
                     isActive ? "bg-white/10 text-white" : "text-neutral-500 hover:bg-white/5"
                   }`}
                 >
                   <item.icon size={15} className="flex-shrink-0" />
-                  <span>{item.label}</span>
+                  <span>{t(item.labelKey)}</span>
                 </Link>
               );
             })}

@@ -1,4 +1,5 @@
 import { Puzzle, ExternalLink, Check } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Button } from "../components/ui/button";
 import { Badge } from "../components/ui/badge";
 import { Card } from "../components/ui/card";
@@ -31,27 +32,29 @@ const logoColors: Record<string, string> = {
 };
 
 export function OrgIntegrations() {
+  const { t } = useTranslation();
+
   return (
     <div className="p-8">
       {/* Header */}
       <div className="flex items-start justify-between mb-6">
         <div>
-          <h1 className="text-[22px] font-semibold mb-1">Integrations</h1>
+          <h1 className="text-[22px] font-semibold mb-1">{t("integrations.title")}</h1>
           <p className="text-sm text-muted-foreground">
-            Connect external tools and services to enhance your workflow.
+            {t("integrations.subtitle")}
           </p>
         </div>
         <Button variant="outline" asChild>
           <a href="#">
             <ExternalLink size={13} />
-            Browse catalogue
+            {t("integrations.browseCatalogue")}
           </a>
         </Button>
       </div>
 
       {/* Connected section */}
       <div className="mb-8">
-        <h2 className="text-xs mb-3 text-subtle font-medium tracking-[0.07em]">CONNECTED</h2>
+        <h2 className="text-xs mb-3 text-subtle font-medium tracking-[0.07em]">{t("integrations.connected")}</h2>
         <div className="grid gap-3" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))" }}>
           {integrations.filter((i) => i.connected).map((integration) => (
             <IntegrationCard key={integration.id} integration={integration} />
@@ -61,7 +64,7 @@ export function OrgIntegrations() {
 
       {/* Available section */}
       <div>
-        <h2 className="text-xs mb-3 text-subtle font-medium tracking-[0.07em]">AVAILABLE</h2>
+        <h2 className="text-xs mb-3 text-subtle font-medium tracking-[0.07em]">{t("integrations.available")}</h2>
         <div className="grid gap-3" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))" }}>
           {integrations.filter((i) => !i.connected).map((integration) => (
             <IntegrationCard key={integration.id} integration={integration} />
@@ -74,6 +77,7 @@ export function OrgIntegrations() {
 
 function IntegrationCard({ integration }: { integration: Integration }) {
   const bgColor = logoColors[integration.logo] || "#333";
+  const { t } = useTranslation();
 
   return (
     <Card className="p-4 gap-3">
@@ -97,7 +101,7 @@ function IntegrationCard({ integration }: { integration: Integration }) {
         {integration.connected && (
           <Badge>
             <Check size={11} />
-            Connected
+            {t("integrations.connectedBadge")}
           </Badge>
         )}
       </div>
@@ -106,9 +110,9 @@ function IntegrationCard({ integration }: { integration: Integration }) {
 
       <div className="flex justify-end">
         {integration.connected ? (
-          <Button variant="outline" size="sm">Configure</Button>
+          <Button variant="outline" size="sm">{t("common.configure")}</Button>
         ) : (
-          <Button size="sm">Connect</Button>
+          <Button size="sm">{t("common.connect")}</Button>
         )}
       </div>
     </Card>

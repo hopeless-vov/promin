@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Outlet, Link, useParams, useLocation, useNavigate } from "react-router";
+import { useTranslation } from "react-i18next";
 import { TopNav } from "./TopNav";
 import {
   GitBranch,
@@ -13,15 +14,16 @@ import {
 import { useOrganizations } from "../../hooks/useOrganizations";
 
 const navItems = [
-  { icon: GitBranch, label: "Branches", path: "" },
-  { icon: Users, label: "Team", path: "team" },
-  { icon: Puzzle, label: "Integrations", path: "integrations" },
-  { icon: BarChart2, label: "Usage", path: "usage" },
-  { icon: CreditCard, label: "Billing", path: "billing" },
-  { icon: Settings, label: "Organization Settings", path: "settings" },
+  { icon: GitBranch, labelKey: "nav.sidebar.branches", path: "" },
+  { icon: Users, labelKey: "nav.sidebar.team", path: "team" },
+  { icon: Puzzle, labelKey: "nav.sidebar.integrations", path: "integrations" },
+  { icon: BarChart2, labelKey: "nav.sidebar.usage", path: "usage" },
+  { icon: CreditCard, labelKey: "nav.sidebar.billing", path: "billing" },
+  { icon: Settings, labelKey: "nav.sidebar.orgSettings", path: "settings" },
 ];
 
 export function OrgLayout() {
+  const { t } = useTranslation();
   const params = useParams();
   const orgId = params.orgId || "vcuwjtqppzztgjwtvmta";
   const location = useLocation();
@@ -54,9 +56,10 @@ export function OrgLayout() {
           <nav className="flex-1 p-2 pt-3 space-y-0.5">
             {navItems.map((item) => {
               const isActive = activePath === item.path;
+              const label = t(item.labelKey);
               return (
                 <Link
-                  key={item.label}
+                  key={item.labelKey}
                   to={
                     item.path === ""
                       ? `/dashboard/org/${orgId}`
@@ -65,10 +68,10 @@ export function OrgLayout() {
                   className={`flex items-center gap-2.5 px-2 py-2 rounded text-sm transition-colors ${
                     isActive ? "bg-white/10 text-white" : "text-neutral-400 hover:bg-white/5"
                   }`}
-                  title={sidebarCollapsed ? item.label : undefined}
+                  title={sidebarCollapsed ? label : undefined}
                 >
                   <item.icon size={16} className="flex-shrink-0" />
-                  {!sidebarCollapsed && <span>{item.label}</span>}
+                  {!sidebarCollapsed && <span>{label}</span>}
                 </Link>
               );
             })}

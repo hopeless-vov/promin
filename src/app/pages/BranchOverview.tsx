@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router";
+import { useTranslation } from "react-i18next";
 import {
   Pause,
   Play,
@@ -40,6 +41,7 @@ const activityFeed = [
 
 export function BranchOverview() {
   const { branchId } = useParams();
+  const { t } = useTranslation();
   const branch = mockBranches[branchId || "branch-01"] || mockBranches["branch-01"];
   const isPaused = branch.status === "PAUSED";
   const [resuming, setResuming] = useState(false);
@@ -59,22 +61,17 @@ export function BranchOverview() {
           </div>
 
           <h2 className="text-lg font-semibold mb-4">
-            The branch &ldquo;{branch.name}&rdquo; is currently paused
+            {t("branchOverview.pausedTitle", { name: branch.name })}
           </h2>
 
           <p className="text-sm leading-relaxed mb-3 text-muted-foreground">
-            All data, including records, documents, and workflow history, remains safe. You can resume
-            this branch from the dashboard within{" "}
-            <span className="text-secondary-foreground font-medium">87 days</span>{" "}
-            (until{" "}
-            <span className="text-secondary-foreground font-medium">{branch.resumeDeadline}</span>). After
-            that, this branch will not be resumable, but data will still be available for download.
+            {t("branchOverview.pausedDescription", { days: "87", deadline: branch.resumeDeadline })}
           </p>
 
           <p className="text-sm leading-relaxed mb-1 text-muted-foreground">
-            To prevent future pauses, consider upgrading to Pro.
+            {t("branchOverview.preventPauses")}
           </p>
-          <p className="text-xs mb-8 text-subtle">Branch last paused on {branch.pausedDate}</p>
+          <p className="text-xs mb-8 text-subtle">{t("branchOverview.lastPaused", { date: branch.pausedDate })}</p>
 
           <Separator className="mb-6" />
 
@@ -82,24 +79,24 @@ export function BranchOverview() {
           <div className="flex items-center justify-between">
             <button className="flex items-center gap-2 text-sm text-muted-foreground">
               <ExternalLink size={13} />
-              Learn more
+              {t("common.learnMore")}
             </button>
             <div className="flex items-center gap-3">
               <Button variant="outline" onClick={handleResume}>
                 {resuming ? (
                   <>
                     <div className="w-3 h-3 rounded-full border border-brand border-t-transparent animate-spin" />
-                    Resuming…
+                    {t("branchOverview.resuming")}
                   </>
                 ) : (
                   <>
                     <Play size={13} />
-                    Resume branch
+                    {t("branchOverview.resumeBranch")}
                   </>
                 )}
               </Button>
               <Button variant="solid">
-                Upgrade to Pro
+                {t("branchOverview.upgradeToPro")}
               </Button>
             </div>
           </div>
@@ -116,7 +113,7 @@ export function BranchOverview() {
         <div>
           <div className="flex items-center gap-2 mb-1">
             <CheckCircle2 size={15} className="text-brand" />
-            <span className="text-xs text-brand font-medium">Active</span>
+            <span className="text-xs text-brand font-medium">{t("branchOverview.active")}</span>
           </div>
           <h1 className="text-[22px] font-semibold">{branch.name}</h1>
           <div className="flex items-center gap-1.5 mt-1">
@@ -126,7 +123,7 @@ export function BranchOverview() {
         </div>
         <Button variant="outline">
           <AlertTriangle size={13} className="text-status-paused" />
-          Pause branch
+          {t("branchOverview.pauseBranch")}
         </Button>
       </div>
 
@@ -149,8 +146,8 @@ export function BranchOverview() {
         {/* Activity feed */}
         <Card className="overflow-hidden">
           <div className="px-5 py-3 flex items-center justify-between border-b border-border bg-surface-dark">
-            <span className="text-xs text-subtle font-medium tracking-[0.06em]">RECENT ACTIVITY</span>
-            <button className="text-xs text-brand hover:underline">View all</button>
+            <span className="text-xs text-subtle font-medium tracking-[0.06em]">{t("branchOverview.recentActivity")}</span>
+            <button className="text-xs text-brand hover:underline">{t("branchOverview.viewAll")}</button>
           </div>
           {activityFeed.map((item, i) => (
             <div
@@ -184,7 +181,7 @@ export function BranchOverview() {
         <div className="space-y-4">
           {/* Branch health */}
           <Card className="p-4">
-            <p className="text-xs mb-3 text-subtle font-medium tracking-[0.06em]">BRANCH HEALTH</p>
+            <p className="text-xs mb-3 text-subtle font-medium tracking-[0.06em]">{t("branchOverview.branchHealth")}</p>
             {[
               { label: "API Response", value: "98ms", ok: true },
               { label: "Data Sync", value: "Healthy", ok: true },

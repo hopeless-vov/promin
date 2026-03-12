@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router";
 import {
   Search,
@@ -24,8 +25,8 @@ const mockBranches = [
   { id: "branch-04", name: "vendor-hub", status: "PAUSED", env: "STAGING" },
 ];
 
-const userMenuItems = ["Account preferences", "Feature previews", "Changelog"];
-const themes = ["Dark", "Light", "Classic Dark", "System"];
+const userMenuItemKeys = ["accountPreferences", "featurePreviews", "changelog"] as const;
+const themeKeys = ["dark", "light", "classicDark", "system"] as const;
 
 /* ─── prop types ──────────────────────────────────────────────────────────── */
 
@@ -62,6 +63,7 @@ function Slash() {
 /* ─── Org dropdown ────────────────────────────────────────────────────────── */
 
 function OrgDropdown({ orgId, orgName, onClose }: { orgId: string; orgName: string; onClose: () => void }) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const { data: orgs = [] } = useOrganizations();
@@ -76,7 +78,7 @@ function OrgDropdown({ orgId, orgName, onClose }: { orgId: string; orgName: stri
           <div className="relative">
             <Search size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-subtle" />
             <Input
-              placeholder="Find organization..."
+              placeholder={t("nav.findOrganization")}
               className="h-8 pl-8 text-sm"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -101,14 +103,14 @@ function OrgDropdown({ orgId, orgName, onClose }: { orgId: string; orgName: stri
           onClick={() => { onClose(); navigate("/dashboard/organizations"); }}
           className="w-full text-left px-3 py-2 text-sm text-muted-foreground hover:bg-white/5 transition-colors"
         >
-          All Organizations
+          {t("nav.allOrganizations")}
         </button>
         <button
           onClick={() => { onClose(); navigate("/dashboard/new"); }}
           className="w-full flex items-center gap-2 px-3 py-2 text-sm text-muted-foreground hover:bg-white/5 transition-colors"
         >
           <Plus size={12} />
-          New organization
+          {t("organizations.newOrganization")}
         </button>
       </div>
     </>
@@ -118,6 +120,7 @@ function OrgDropdown({ orgId, orgName, onClose }: { orgId: string; orgName: stri
 /* ─── Branch dropdown ─────────────────────────────────────────────────────── */
 
 function BranchDropdown({ orgId, branchId, onClose }: { orgId: string; branchId: string; onClose: () => void }) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
 
@@ -131,7 +134,7 @@ function BranchDropdown({ orgId, branchId, onClose }: { orgId: string; branchId:
           <div className="relative">
             <Search size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-subtle" />
             <Input
-              placeholder="Find branch..."
+              placeholder={t("nav.findBranch")}
               className="h-8 pl-8 text-sm"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -163,7 +166,7 @@ function BranchDropdown({ orgId, branchId, onClose }: { orgId: string; branchId:
           className="w-full flex items-center gap-2 px-3 py-2 text-sm text-muted-foreground hover:bg-white/5 transition-colors"
         >
           <Plus size={12} />
-          New branch
+          {t("branches.newBranch")}
         </button>
       </div>
     </>
@@ -173,10 +176,11 @@ function BranchDropdown({ orgId, branchId, onClose }: { orgId: string; branchId:
 /* ─── User menu ───────────────────────────────────────────────────────────── */
 
 function UserMenu() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
   const [open, setOpen] = useState(false);
-  const [activeTheme, setActiveTheme] = useState("Classic Dark");
+  const [activeTheme, setActiveTheme] = useState<typeof themeKeys[number]>("classicDark");
 
   async function handleLogout() {
     setOpen(false);
@@ -201,28 +205,28 @@ function UserMenu() {
               <span className="text-sm text-secondary-foreground">{user?.email ?? "user@srm.com"}</span>
             </div>
 
-            {userMenuItems.map((item) => (
-              <button key={item} className="w-full text-left px-3 py-2 text-sm text-muted-foreground hover:bg-white/5 transition-colors">
-                {item}
+            {userMenuItemKeys.map((key) => (
+              <button key={key} className="w-full text-left px-3 py-2 text-sm text-muted-foreground hover:bg-white/5 transition-colors">
+                {t(`nav.userMenu.${key}`)}
               </button>
             ))}
 
             <div className="px-3 pt-2 pb-1 mt-1 border-t border-border">
-              <p className="text-xs mb-2 text-subtle">Theme</p>
-              {themes.map((theme) => (
+              <p className="text-xs mb-2 text-subtle">{t("nav.userMenu.theme")}</p>
+              {themeKeys.map((key) => (
                 <button
-                  key={theme}
-                  onClick={() => setActiveTheme(theme)}
+                  key={key}
+                  onClick={() => setActiveTheme(key)}
                   className="w-full flex items-center gap-2 px-2 py-1.5 text-sm rounded text-muted-foreground hover:bg-white/5 transition-colors"
                 >
                   <span
                     className={`w-2 h-2 rounded-full flex-shrink-0 ${
-                      activeTheme === theme
+                      activeTheme === key
                         ? "bg-brand"
                         : "bg-transparent border border-border"
                     }`}
                   />
-                  {theme}
+                  {t(`nav.userMenu.themes.${key}`)}
                 </button>
               ))}
             </div>
@@ -232,7 +236,7 @@ function UserMenu() {
                 onClick={handleLogout}
                 className="w-full text-left px-3 py-2 text-sm text-muted-foreground hover:bg-white/5 transition-colors"
               >
-                Log out
+                {t("common.logOut")}
               </button>
             </div>
           </div>
@@ -245,15 +249,16 @@ function UserMenu() {
 /* ─── Right-side actions (shared across all variants) ─────────────────────── */
 
 function NavRight() {
+  const { t } = useTranslation();
   return (
     <div className="flex items-center gap-1.5">
       <Button variant="ghost" className="text-sm px-3 py-1.5">
-        Feedback
+        {t("common.feedback")}
       </Button>
 
       <Button variant="outline" className="flex items-center gap-2 px-3 py-1.5 text-sm min-w-[140px]">
         <Search size={12} />
-        <span>Search...</span>
+        <span>{t("common.search")}</span>
         <span className="text-xs ml-auto text-subtle">⌘K</span>
       </Button>
 
@@ -275,6 +280,7 @@ function NavRight() {
 export function TopNav(props: TopNavVariant) {
   const [orgDropdownOpen, setOrgDropdownOpen] = useState(false);
   const [branchDropdownOpen, setBranchDropdownOpen] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <header className="flex items-center justify-between px-4 h-12 flex-shrink-0 relative z-50 bg-neutral-900 border-b border-border">
@@ -390,7 +396,7 @@ export function TopNav(props: TopNavVariant) {
             {/* Connect button */}
             <Button variant="outline" className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs h-auto">
               <Link2 size={12} />
-              Connect
+              {t("common.connect")}
             </Button>
           </>
         )}
