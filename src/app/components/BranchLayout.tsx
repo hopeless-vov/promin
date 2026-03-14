@@ -1,21 +1,22 @@
-import { Outlet, Link, useParams, useLocation } from "react-router";
-import { useTranslation } from "react-i18next";
-import { TopNav } from "./TopNav";
 import {
-  LayoutDashboard,
-  Table2,
-  Search,
-  Database,
-  ShieldCheck,
-  FolderOpen,
-  Zap,
   Activity,
-  Lightbulb,
   BarChart2,
-  ScrollText,
+  Database,
+  FolderOpen,
+  LayoutDashboard,
+  Lightbulb,
   Puzzle,
+  ScrollText,
+  Search,
   Settings,
+  ShieldCheck,
+  Table2,
+  Zap,
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { Link, Outlet, useLocation,useParams } from "react-router";
+
+import { TopNav } from "./TopNav";
 
 const orgs = [
   { id: "vcuwjtqppzztgjwtvmta", name: "Acme Corp" },

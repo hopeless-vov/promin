@@ -1,15 +1,16 @@
+import { useTranslation } from "react-i18next";
 import {
-  AreaChart,
   Area,
+  AreaChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
 } from "recharts";
-import { Card } from "../components/ui/card";
-import { Progress } from "../components/ui/progress";
-import { useTranslation } from "react-i18next";
+
+import { Card } from "@/app/components/ui/card";
+import { Progress } from "@/app/components/ui/progress";
 
 const apiData = [
   { day: "Mar 1", requests: 12400 },
@@ -48,7 +49,7 @@ const stats = [
   { label: "Branches", value: "4", limit: "10", pct: 40 },
 ];
 
-function CustomTooltip({ active, payload, label }: any) {
+function CustomTooltip({ active, payload, label }: { active?: boolean; payload?: { value?: number }[]; label?: string }) {
   if (!active || !payload?.length) return null;
   return (
     <div className="px-3 py-2 rounded-lg text-xs bg-card border border-border text-secondary-foreground">
@@ -87,8 +88,8 @@ export function OrgUsage() {
 
       {/* Charts */}
       <div className="grid gap-6" style={{ gridTemplateColumns: "1fr 1fr" }}>
-        <ChartCard title={t("usage.charts.apiRequests")} subtitle={t("usage.charts.last12Days")} data={apiData} dataKey="requests" unit="" />
-        <ChartCard title={t("usage.charts.storage")} subtitle={t("usage.charts.last12Days")} data={storageData} dataKey="gb" unit=" GB" />
+        <ChartCard title={t("usage.charts.apiRequests")} subtitle={t("usage.charts.last12Days")} data={apiData} dataKey="requests" />
+        <ChartCard title={t("usage.charts.storage")} subtitle={t("usage.charts.last12Days")} data={storageData} dataKey="gb" />
       </div>
     </div>
   );
@@ -99,13 +100,13 @@ function ChartCard({
   subtitle,
   data,
   dataKey,
-  unit,
+  _unit,
 }: {
   title: string;
   subtitle: string;
-  data: any[];
+  data: Record<string, string | number>[];
   dataKey: string;
-  unit: string;
+  _unit?: string;
 }) {
   return (
     <Card className="p-5">

@@ -1,13 +1,14 @@
-import { useState } from "react";
-import { useNavigate } from "react-router";
-import { useTranslation } from "react-i18next";
-import { TopNav } from "../components/TopNav";
 import { ChevronDown } from "lucide-react";
-import { useCreateOrganization } from "../../hooks/useOrganizations";
-import { Button } from "../components/ui/button";
-import { Input } from "../components/ui/input";
-import { Card } from "../components/ui/card";
-import { Separator } from "../components/ui/separator";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
+
+import { TopNav } from "@/app/components/TopNav";
+import { Button } from "@/app/components/ui/button";
+import { Card } from "@/app/components/ui/card";
+import { Input } from "@/app/components/ui/input";
+import { Separator } from "@/app/components/ui/separator";
+import { useCreateOrganization } from "@/hooks/useOrganizations";
 
 export function NewOrganization() {
   const navigate = useNavigate();
@@ -139,8 +140,8 @@ export function NewOrganization() {
                 try {
                   const org = await createOrg.mutateAsync({ name: name.trim(), type: orgType });
                   navigate(`/dashboard/org/${org.id}`);
-                } catch (e: any) {
-                  setError(e.message || t("newOrg.error"));
+                } catch (e: unknown) {
+                  setError(e instanceof Error ? e.message : t("newOrg.error"));
                 }
               }}
             >

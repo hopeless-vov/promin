@@ -1,8 +1,9 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
 import {
-  fetchUserOrganizations,
   createOrganization,
-} from "../lib/organizations";
+  fetchUserOrganizations,
+} from "@/lib/organizations";
 
 export function useOrganizations() {
   return useQuery({

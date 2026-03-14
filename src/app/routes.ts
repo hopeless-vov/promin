@@ -1,22 +1,23 @@
 import { createBrowserRouter, redirect } from "react-router";
+
 import { AuthLayout } from "./components/AuthLayout";
+import { BranchLayout } from "./components/BranchLayout";
 import { DashboardLayout } from "./components/DashboardLayout";
 import { OrgLayout } from "./components/OrgLayout";
-import { BranchLayout } from "./components/BranchLayout";
 import { ProtectedRoute, PublicRoute } from "./components/ProtectedRoute";
-import { SignUp } from "./pages/SignUp";
-import { SignIn } from "./pages/SignIn";
-import { ForgotPassword } from "./pages/ForgotPassword";
-import { Organizations } from "./pages/Organizations";
-import { NewOrganization } from "./pages/NewOrganization";
-import { OrgBranches } from "./pages/OrgBranches";
-import { OrgTeam } from "./pages/OrgTeam";
-import { OrgIntegrations } from "./pages/OrgIntegrations";
-import { OrgUsage } from "./pages/OrgUsage";
-import { OrgBilling } from "./pages/OrgBilling";
-import { OrgSettings } from "./pages/OrgSettings";
 import { BranchOverview } from "./pages/BranchOverview";
 import { BranchPlaceholder } from "./pages/BranchPlaceholder";
+import { ForgotPassword } from "./pages/ForgotPassword";
+import { NewOrganization } from "./pages/NewOrganization";
+import { Organizations } from "./pages/Organizations";
+import { OrgBilling } from "./pages/OrgBilling";
+import { OrgBranches } from "./pages/OrgBranches";
+import { OrgIntegrations } from "./pages/OrgIntegrations";
+import { OrgSettings } from "./pages/OrgSettings";
+import { OrgTeam } from "./pages/OrgTeam";
+import { OrgUsage } from "./pages/OrgUsage";
+import { SignIn } from "./pages/SignIn";
+import { SignUp } from "./pages/SignUp";
 
 export const router = createBrowserRouter([
   {

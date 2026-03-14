@@ -1,11 +1,12 @@
+import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router";
-import { Eye, EyeOff, Lock } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { useAuth } from "../AuthContext";
-import { Button } from "../components/ui/button";
-import { Input } from "../components/ui/input";
-import { Separator } from "../components/ui/separator";
+import { Link, useNavigate } from "react-router";
+
+import { useAuth } from "@/app/AuthContext";
+import { Button } from "@/app/components/ui/button";
+import { Input } from "@/app/components/ui/input";
+import { Separator } from "@/app/components/ui/separator";
 
 export function SignIn() {
   const [showPassword, setShowPassword] = useState(false);

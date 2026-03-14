@@ -1,11 +1,12 @@
+import { BookOpen, ChevronDown,Search, UserPlus, X } from "lucide-react";
 import { useState } from "react";
-import { Search, BookOpen, UserPlus, X, ChevronDown } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { Button } from "../components/ui/button";
-import { Input } from "../components/ui/input";
-import { Card } from "../components/ui/card";
-import { Badge } from "../components/ui/badge";
-import { Separator } from "../components/ui/separator";
+
+import { Badge } from "@/app/components/ui/badge";
+import { Button } from "@/app/components/ui/button";
+import { Card } from "@/app/components/ui/card";
+import { Input } from "@/app/components/ui/input";
+import { Separator } from "@/app/components/ui/separator";
 
 interface Member {
   id: string;

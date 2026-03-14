@@ -1,22 +1,23 @@
-import { useState } from "react";
-import { useParams } from "react-router";
-import { useTranslation } from "react-i18next";
 import {
-  Pause,
-  Play,
+  Activity,
   AlertTriangle,
   CheckCircle2,
-  GitBranch,
-  Users,
-  FileText,
-  Activity,
-  Globe,
   Clock,
   ExternalLink,
+  FileText,
+  GitBranch,
+  Globe,
+  Pause,
+  Play,
+  Users,
 } from "lucide-react";
-import { Button } from "../components/ui/button";
-import { Card } from "../components/ui/card";
-import { Separator } from "../components/ui/separator";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
+
+import { Button } from "@/app/components/ui/button";
+import { Card } from "@/app/components/ui/card";
+import { Separator } from "@/app/components/ui/separator";
 
 const mockBranches: Record<string, { name: string; status: string; region: string; pausedDate: string; resumeDeadline: string }> = {
   "branch-01": { name: "acme-crm", status: "ACTIVE", region: "EU | eu-central-1", pausedDate: "", resumeDeadline: "" },

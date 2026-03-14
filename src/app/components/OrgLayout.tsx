@@ -1,17 +1,19 @@
-import { useState } from "react";
-import { Outlet, Link, useParams, useLocation, useNavigate } from "react-router";
-import { useTranslation } from "react-i18next";
-import { TopNav } from "./TopNav";
 import {
-  GitBranch,
-  Users,
-  Puzzle,
   BarChart2,
   CreditCard,
-  Settings,
+  GitBranch,
   PanelLeft,
+  Puzzle,
+  Settings,
+  Users,
 } from "lucide-react";
-import { useOrganizations } from "../../hooks/useOrganizations";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Link, Outlet, useLocation,useParams } from "react-router";
+
+import { useOrganizations } from "@/hooks/useOrganizations";
+
+import { TopNav } from "./TopNav";
 
 const navItems = [
   { icon: GitBranch, labelKey: "nav.sidebar.branches", path: "" },

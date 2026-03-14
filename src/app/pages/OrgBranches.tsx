@@ -1,21 +1,22 @@
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router";
-import { useTranslation } from "react-i18next";
 import {
-  Search,
-  Plus,
-  ChevronDown,
   ArrowUpDown,
+  ChevronDown,
+  Info,
   LayoutGrid,
   List,
   MoreHorizontal,
   PauseCircle,
-  Info,
+  Plus,
+  Search,
 } from "lucide-react";
-import { Button } from "../components/ui/button";
-import { Input } from "../components/ui/input";
-import { Badge } from "../components/ui/badge";
-import { Card } from "../components/ui/card";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate, useParams } from "react-router";
+
+import { Badge } from "@/app/components/ui/badge";
+import { Button } from "@/app/components/ui/button";
+import { Card } from "@/app/components/ui/card";
+import { Input } from "@/app/components/ui/input";
 
 const mockBranches = [
   { id: "branch-01", name: "acme-crm", region: "EU | eu-central-1", status: "ACTIVE" },

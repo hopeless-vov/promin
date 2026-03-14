@@ -1,8 +1,9 @@
-import { CreditCard, Check, Zap } from "lucide-react";
+import { Check, CreditCard, Zap } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { Button } from "../components/ui/button";
-import { Badge } from "../components/ui/badge";
-import { Card } from "../components/ui/card";
+
+import { Badge } from "@/app/components/ui/badge";
+import { Button } from "@/app/components/ui/button";
+import { Card } from "@/app/components/ui/card";
 
 const plans = [
   {

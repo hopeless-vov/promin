@@ -1,19 +1,19 @@
-import { useLocation } from "react-router";
-import { useTranslation } from "react-i18next";
 import {
-  Table2,
-  Search,
-  Database,
-  ShieldCheck,
-  FolderOpen,
-  Zap,
   Activity,
-  Lightbulb,
   BarChart2,
-  ScrollText,
+  Database,
+  FolderOpen,
+  Lightbulb,
   Puzzle,
+  ScrollText,
+  Search,
   Settings,
+  ShieldCheck,
+  Table2,
+  Zap,
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { useLocation } from "react-router";
 
 const pageMap: Record<
   string,

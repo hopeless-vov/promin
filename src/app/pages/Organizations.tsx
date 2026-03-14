@@ -1,12 +1,13 @@
+import { Plus,Search } from "lucide-react";
 import { useState } from "react";
-import { useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
-import { TopNav } from "../components/TopNav";
-import { OrganizationCard } from "../components/OrganizationCard";
-import { Search, Plus } from "lucide-react";
-import { useOrganizations } from "../../hooks/useOrganizations";
-import { Button } from "../components/ui/button";
-import { Input } from "../components/ui/input";
+import { useNavigate } from "react-router";
+
+import { OrganizationCard } from "@/app/components/OrganizationCard";
+import { TopNav } from "@/app/components/TopNav";
+import { Button } from "@/app/components/ui/button";
+import { Input } from "@/app/components/ui/input";
+import { useOrganizations } from "@/hooks/useOrganizations";
 
 export function Organizations() {
   const [searchQuery, setSearchQuery] = useState("");

@@ -1,21 +1,23 @@
+import {
+  Bell,
+  Check,
+  ChevronDown,
+  GitBranch,
+  HelpCircle,
+  Link2,
+  Plus,
+  Search,
+} from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router";
-import {
-  Search,
-  HelpCircle,
-  Bell,
-  ChevronDown,
-  Check,
-  Plus,
-  GitBranch,
-  Link2,
-} from "lucide-react";
-import { useAuth } from "../AuthContext";
-import { useOrganizations } from "../../hooks/useOrganizations";
+
+import { useAuth } from "@/app/AuthContext";
+import { useOrganizations } from "@/hooks/useOrganizations";
+
+import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { Badge } from "./ui/badge";
 import { Separator } from "./ui/separator";
 
 const mockBranches = [
@@ -62,7 +64,7 @@ function Slash() {
 
 /* ─── Org dropdown ────────────────────────────────────────────────────────── */
 
-function OrgDropdown({ orgId, orgName, onClose }: { orgId: string; orgName: string; onClose: () => void }) {
+function OrgDropdown({ orgId, orgName: _orgName, onClose }: { orgId: string; orgName: string; onClose: () => void }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
@@ -259,6 +261,7 @@ function NavRight() {
       <Button variant="outline" className="flex items-center gap-2 px-3 py-1.5 text-sm min-w-[140px]">
         <Search size={12} />
         <span>{t("common.search")}</span>
+        {/* eslint-disable-next-line i18next/no-literal-string */}
         <span className="text-xs ml-auto text-subtle">⌘K</span>
       </Button>
 
@@ -383,6 +386,7 @@ export function TopNav(props: TopNavVariant) {
             {/* Env badge segment */}
             <Slash />
             <div className="flex items-center gap-1 px-2 py-1 rounded hover:bg-white/5 transition-colors cursor-default">
+              {/* eslint-disable-next-line i18next/no-literal-string */}
               <span className="text-sm text-muted-foreground">main</span>
               <Badge
                 variant={props.env === "PRODUCTION" ? "active" : "paused"}

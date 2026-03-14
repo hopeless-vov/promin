@@ -1,11 +1,12 @@
-import { useState } from "react";
-import { useParams } from "react-router";
-import { useTranslation } from "react-i18next";
 import { AlertTriangle } from "lucide-react";
-import { Button } from "../components/ui/button";
-import { Input } from "../components/ui/input";
-import { Card } from "../components/ui/card";
-import { Separator } from "../components/ui/separator";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
+
+import { Button } from "@/app/components/ui/button";
+import { Card } from "@/app/components/ui/card";
+import { Input } from "@/app/components/ui/input";
+import { Separator } from "@/app/components/ui/separator";
 
 export function OrgSettings() {
   const { orgId } = useParams();
@@ -47,6 +48,7 @@ export function OrgSettings() {
               {t("settings.orgSlugDescription")}
             </p>
             <div className="flex items-center rounded-lg overflow-hidden border border-border bg-card">
+              {/* eslint-disable-next-line i18next/no-literal-string */}
               <span className="px-3 py-2 text-sm flex-shrink-0 select-none border-r border-border bg-surface-dark text-subtle">
                 org/
               </span>

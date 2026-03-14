@@ -1,5 +1,6 @@
 import { Navigate, Outlet } from "react-router";
-import { useAuth } from "../AuthContext";
+
+import { useAuth } from "@/app/AuthContext";
 
 function LoadingSpinner() {
   return (

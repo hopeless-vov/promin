@@ -1,8 +1,8 @@
-import { Outlet, useLocation } from "react-router";
-import { useTranslation } from "react-i18next";
-import { Logo } from "./Logo";
 import { BookOpen } from "lucide-react";
-import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
+import { Outlet, useLocation } from "react-router";
+
+import { Logo } from "./Logo";
 
 const testimonials = [
   {

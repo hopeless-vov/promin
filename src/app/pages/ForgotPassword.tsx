@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
-import { useAuth } from "../AuthContext";
-import { Button } from "../components/ui/button";
-import { Input } from "../components/ui/input";
+import { Link } from "react-router";
+
+import { useAuth } from "@/app/AuthContext";
+import { Button } from "@/app/components/ui/button";
+import { Input } from "@/app/components/ui/input";
 
 export function ForgotPassword() {
   const [email, setEmail] = useState("");
