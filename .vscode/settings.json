@@ -1,5 +1,9 @@
 {
   "chat.tools.terminal.autoApprove": {
-    "npx vite": true
+    "npx vite": true,
+    "supabase": true,
+    "psql": true,
+    "npx husky": true,
+    "npx eslint": true
   }
 }
